@@ -1,0 +1,34 @@
+{
+  "story_id": "DEMO01",
+  "premise": "一个人在雨夜看见旧识，却错过真正的相遇",
+  "story_question": "如果错过一次告别，什么还能留下？",
+  "theme": "有些告别无法被补回，只能被接受",
+  "protagonist_want": "确认对方是否还愿意见自己",
+  "protagonist_need": "接受过去已经结束",
+ "core_flaw_or_belief": "她相信错过就是命运的判决，不敢主动改写结局",
+  "opposition": "雨、玻璃、时间与双方的犹豫",
+  "stakes": {
+    "external": "末班车即将离开",
+    "internal": "再次面对失去",
+    "relational": "错过后可能永远不再见"
+  },
+  "inciting_incident": "她在咖啡馆窗外认出他",
+  "turning_points": {
+    "first": "她决定停下来",
+    "midpoint": "他抬头但没有看到她",
+    "second": "她留下痕迹后离开"
+  },
+  "climax_choice": "他冲出门追赶",
+  "consequence": "只看到伞消失在街角",
+  "resolution": "两人仍未真正相遇，但留下了可被记住的痕迹",
+  "character_arc": "从犹豫靠近到接受错过",
+  "relationship_arc": "陌生空间中的旧关系重新浮现又断开",
+  "motif_arc": "雨→玻璃→倒影→唇印→空街",
+  "foreshadow_payoff_map": [
+    {
+      "seed": "倒影重叠",
+      "reinforcement": "手指接近玻璃",
+      "payoff": "唇印消失"
+    }
+  ]
+}

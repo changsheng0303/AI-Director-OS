@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "foundation_id": "FOUNDATION-001",
+  "foundation_version": "v001",
+  "project": {"project_id": "IP-001", "title": "临海女子学院", "format": "vertical-drama", "orientation": "9:16"},
+  "seed": {"raw_input": "现代日本沿海城市，一所女子学院，校园恋爱喜剧。", "extracted_fact_ids": ["FACT-001", "FACT-002"], "unresolved_fields": []},
+  "facts": [
+    {"fact_id": "FACT-001", "path": "world.setting", "value": "现代日本沿海小城与临海女子学院", "layer": "static", "origin": "user", "authority": "locked", "confidence": "high", "evidence": ["创意种子"], "accepted_by": "user"},
+    {"fact_id": "FACT-002", "path": "world.tone", "value": "校园恋爱喜剧", "layer": "static", "origin": "user", "authority": "locked", "confidence": "high", "evidence": ["创意种子"], "accepted_by": "user"},
+    {"fact_id": "FACT-003", "path": "character.CH-001.identity", "value": "凉子是女子学院的核心学生角色", "layer": "static", "origin": "user", "authority": "locked", "confidence": "high", "evidence": ["用户确认主角"], "accepted_by": "user"},
+    {"fact_id": "FACT-004", "path": "character.CH-001.behavior.under_pressure", "value": "先确认他人安全，再压低声音给出指令", "layer": "static", "origin": "ai_proposal", "authority": "locked", "confidence": "medium", "evidence": ["用户确认她是成熟、照顾型角色"], "accepted_by": "user:2026-08-19"},
+    {"fact_id": "FACT-005", "path": "character.CH-001.voice.verbal_tic", "value": "在担心时先停顿再改用间接关心的说法", "layer": "static", "origin": "ai_proposal", "authority": "pending", "confidence": "low", "evidence": ["待用户确认"]},
+    {"fact_id": "FACT-006", "path": "location.LOC-001.identity", "value": "临海女子学院是主要故事活动范围", "layer": "static", "origin": "user", "authority": "locked", "confidence": "high", "evidence": ["创意种子"], "accepted_by": "user"}
+  ],
+  "entities": [
+    {"entity_id": "WORLD-001", "entity_type": "world", "name": "临海女子学院世界", "importance": "foundation", "fact_ids": ["FACT-001", "FACT-002"], "narrative_functions": ["romance-comedy-container"], "narrative_relevance": {"impact": "high", "used_by": ["CH-001", "LOC-001"]}},
+    {"entity_id": "CH-001", "entity_type": "character", "name": "凉子", "importance": "protagonist", "fact_ids": ["FACT-003", "FACT-004", "FACT-005"], "narrative_functions": ["protagonist", "emotional-anchor"], "narrative_relevance": {"impact": "high", "used_by": ["WORLD-001"]}},
+    {"entity_id": "LOC-001", "entity_type": "location", "name": "临海女子学院", "importance": "foundation", "fact_ids": ["FACT-006"], "narrative_functions": ["primary-stage"], "narrative_relevance": {"impact": "high", "used_by": ["CH-001"]}}
+  ],
+  "cast": {"members": [{"entity_id": "CH-001", "kind": "human", "presentation": "female", "cast_role": "protagonist", "production_depth": "bible"}], "declared_counts": {"human_female": 1}},
+  "relationships": [],
+  "constraints": {"allowed_story_scope": ["学院", "沿海小城", "校园恋爱喜剧"], "prohibited_assumptions": ["不得把待确认提案写成已发生事实"], "production_constraints": ["竖屏角色构图优先"]},
+  "canon": {"locked": true, "locked_fact_ids": ["FACT-001", "FACT-002", "FACT-003", "FACT-004", "FACT-006"], "open_noncritical_questions": ["凉子的语言习惯是否接受 FACT-005 提案"]},
+  "audit": {"status": "FOUNDATION_LOCKED", "semantic_findings": []}
+}

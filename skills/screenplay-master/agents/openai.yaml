@@ -1,0 +1,6 @@
+interface:
+  display_name: "Screenplay Master"
+  short_description: "Plan and review screenplay video scripts."
+  default_prompt: "Use $screenplay-master to create, revise, or evaluate a short drama, screenplay, episode outline, or scripted video project."
+policy:
+  allow_implicit_invocation: true

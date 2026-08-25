@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "narrative_id": "NAR-DEMO-001",
+  "source": {
+    "script_id": "SCRIPT-DEMO-001",
+    "script_version": "v001",
+    "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "canon": {
+    "locked": true,
+    "plot_change_allowed": false,
+    "dialogue_policy": "verbatim",
+    "approved_change_ids": []
+  },
+  "story": {
+    "premise": "A courier must decide whether to deliver evidence that will condemn her brother.",
+    "story_question": "Will she choose truth over family loyalty?",
+    "theme": "Loyalty without accountability becomes complicity."
+  },
+  "characters": [
+    {
+      "character_id": "CHAR-LIN",
+      "name": "Lin",
+      "motivation": "Protect her brother without becoming his accomplice.",
+      "entry_state": {"emotion": "guarded", "location": "station"},
+      "exit_state": {"emotion": "resolved", "location": "evidence desk"},
+      "knowledge_before": ["INFO-BROTHER-ACCUSED"],
+      "knowledge_after": ["INFO-BROTHER-ACCUSED", "INFO-EVIDENCE-PROVES-GUILT"],
+      "status_history": [
+        {"event_id": "EV-001", "status": "alive"}
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "SC-001",
+      "order": 1,
+      "objective": "Reach the evidence desk without opening the package.",
+      "conflict": "The damaged seal exposes a photograph inside.",
+      "turning_point": "Lin recognizes her brother in the photograph.",
+      "emotional_delta": "guarded to shaken",
+      "entry_state": {"package": "sealed", "location": "station"},
+      "exit_state": {"package": "opened", "location": "evidence desk"},
+      "event_ids": ["EV-001", "EV-002"]
+    },
+    {
+      "scene_id": "SC-002",
+      "order": 2,
+      "objective": "Choose whether to submit the evidence.",
+      "conflict": "Submitting it will condemn her brother.",
+      "turning_point": "Lin places the package on the evidence desk.",
+      "emotional_delta": "shaken to resolved",
+      "entry_state": {"package": "opened", "location": "evidence desk"},
+      "exit_state": {"package": "submitted", "location": "evidence desk"},
+      "event_ids": ["EV-003"]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EV-001",
+      "scene_id": "SC-001",
+      "order": 1,
+      "cause_ids": [],
+      "action": "Lin carries the sealed package through the station.",
+      "consequence": "The torn corner catches on a turnstile.",
+      "participants": ["CHAR-LIN"],
+      "mode": "present"
+    },
+    {
+      "event_id": "EV-002",
+      "scene_id": "SC-001",
+      "order": 2,
+      "cause_ids": ["EV-001"],
+      "action": "Lin sees the photograph exposed by the torn seal.",
+      "consequence": "She learns the evidence implicates her brother.",
+      "decision": "She continues toward the evidence desk.",
+      "participants": ["CHAR-LIN"],
+      "mode": "present",
+      "knowledge_changes": [
+        {"character_id": "CHAR-LIN", "info_id": "INFO-EVIDENCE-PROVES-GUILT", "source": "witnessed"}
+      ]
+    },
+    {
+      "event_id": "EV-003",
+      "scene_id": "SC-002",
+      "order": 1,
+      "cause_ids": ["EV-002"],
+      "action": "Lin submits the package.",
+      "consequence": "The investigation can proceed and her family bond is broken.",
+      "decision": "She accepts the cost of telling the truth.",
+      "participants": ["CHAR-LIN"],
+      "mode": "present"
+    }
+  ],
+  "continuity": {
+    "locations": [
+      {"location_id": "LOC-STATION", "name": "Central station"},
+      {"location_id": "LOC-DESK", "name": "Evidence desk"}
+    ],
+    "props": [
+      {
+        "prop_id": "PROP-PACKAGE",
+        "name": "Evidence package",
+        "state_history": [
+          {"event_id": "EV-001", "status": "intact", "holder_id": "CHAR-LIN", "location_id": "LOC-STATION"},
+          {"event_id": "EV-002", "status": "damaged", "holder_id": "CHAR-LIN", "location_id": "LOC-STATION"},
+          {"event_id": "EV-003", "status": "transferred", "location_id": "LOC-DESK"}
+        ]
+      }
+    ]
+  },
+  "promises": [
+    {
+      "promise_id": "PROMISE-PACKAGE-CHOICE",
+      "planted_event_id": "EV-001",
+      "payoff_event_id": "EV-003",
+      "status": "paid_off"
+    }
+  ]
+}

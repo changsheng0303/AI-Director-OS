@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Story Contract V1.5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "story_id",
+    "premise",
+    "story_question",
+    "protagonist_want",
+    "protagonist_need",
+    "opposition",
+    "stakes",
+    "inciting_incident",
+    "turning_points",
+    "climax_choice",
+    "consequence",
+    "resolution",
+    "character_arc"
+  ],
+  "properties": {
+    "story_id": {
+      "type": "string"
+    },
+    "premise": {
+      "type": "string"
+    },
+    "story_question": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string"
+    },
+    "protagonist_want": {
+      "type": "string"
+    },
+    "protagonist_need": {
+      "type": "string"
+    },
+    "core_flaw_or_belief": {
+      "type": "string"
+    },
+    "opposition": {
+      "type": "string"
+    },
+    "stakes": {
+      "type": "object"
+    },
+    "inciting_incident": {
+      "type": "string"
+    },
+    "turning_points": {
+      "type": "object"
+    },
+    "climax_choice": {
+      "type": "string"
+    },
+    "consequence": {
+      "type": "string"
+    },
+    "resolution": {
+      "type": "string"
+    },
+    "character_arc": {
+      "type": "string"
+    },
+    "relationship_arc": {
+      "type": "string"
+    },
+    "motif_arc": {
+      "type": "string"
+    },
+    "foreshadow_payoff_map": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

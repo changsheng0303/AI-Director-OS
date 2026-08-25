@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Story Architecture V1.7",
+  "type": "object",
+  "required": ["story_question", "state_ledger", "promises", "scenes"],
+  "properties": {
+    "story_question": {"type": "string"},
+    "state_ledger": {"type": "object"},
+    "promises": {"type": "array"},
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene_id", "scene_archetype", "entry_state", "exit_state"],
+        "properties": {
+          "scene_id": {"type": "string"},
+          "scene_archetype": {
+            "type": "string",
+            "enum": ["DISCOVERY","CONFRONTATION","PURSUIT","DUEL","JOURNEY","REUNION","DECISION","REVEAL","COMEDY_SETUP_PAYOFF","ATMOSPHERE"]
+          },
+          "entry_state": {"type": "string"},
+          "exit_state": {"type": "string"},
+          "midpoint_reframe": {"type": "string"},
+          "climax_choice": {"type": "string"},
+          "consequence": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# Preflight Checklist V1.2
+
+- [ ] 用户目标明确
+- [ ] 输出形式明确
+- [ ] 受众/时长/画幅明确或合理推断
+- [ ] 类型与情绪曲线明确
+- [ ] **NSFW Level 已确定（0-4，见 SKILL.md §13；未指定时默认 Level 0 并从内容推断最低合理等级）**
+- [ ] Level 2+ 计划：遮挡手法策略已定（构图裁切/雾气/光影/道具/发丝）
+- [ ] Level 3 计划：三不原则已声明（乳头/臀部必遮、无完全裸露）
+- [ ] 角色关系前史已定义（旧识/恋人/暗恋/敌对/初遇）
+- [ ] 开场 3 镜关系线索镜头已规划
+- [ ] 情绪阶梯与过渡节拍已规划
+- [ ] 信息释放表已建立（见 story-craft.md §4）
+- [ ] Story Risk List 已生成
+- [ ] Project ID / artifact version 已建立
+- [ ] 角色与场景资产可引用
+- [ ] Asset Registry 版本可追溯
+- [ ] 生成模型能力已知或标记未知
+- [ ] 高风险镜头已标记
+- [ ] 动漫视觉语言五要素已初步锁定
+- [ ] 演出风格取向已确定
+- [ ] Beat → Shot Coverage 可追溯
+- [ ] Hero/Sakuga 镜头已分配预算
+- [ ] Primary/Fallback 路由已定义
+- [ ] Human Approval Gate 已设置
+- [ ] Project State 当前状态正确

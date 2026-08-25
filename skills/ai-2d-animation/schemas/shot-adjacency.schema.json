@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Shot Adjacency Contract V1.6",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "shot_id",
+    "previous_shot",
+    "adjacency_type",
+    "start_state",
+    "end_state",
+    "spatial_anchor",
+    "bridge_reason"
+  ],
+  "properties": {
+    "shot_id": {
+      "type": "string"
+    },
+    "previous_shot": {
+      "type": "string"
+    },
+    "adjacency_type": {
+      "type": "string",
+      "enum": [
+        "CONTINUE",
+        "REACT",
+        "REVEAL",
+        "CUTAWAY",
+        "BRIDGE",
+        "CONTRAST",
+        "SCENE_BREAK",
+        "TIME_JUMP"
+      ]
+    },
+    "start_state": {
+      "type": "string"
+    },
+    "end_state": {
+      "type": "string"
+    },
+    "spatial_anchor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subject_screen_position": {
+      "type": "string"
+    },
+    "gaze_match": {
+      "type": "string"
+    },
+    "action_match": {
+      "type": "string"
+    },
+    "prop_match": {
+      "type": "string"
+    },
+    "lighting_match": {
+      "type": "string"
+    },
+    "bridge_reason": {
+      "type": "string"
+    },
+    "transition_risk": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ending_function": {
+      "type": "string",
+      "enum": [
+        "ACTION_COMPLETE",
+        "REACTION_LANDING",
+        "REVEAL_LANDING",
+        "CHOICE_LANDING",
+        "CONSEQUENCE_LANDING",
+        "PROP_PAYOFF",
+        "RELATIONSHIP_LANDING",
+        "MOTION_CONTINUE",
+        "DIALOGUE_BUTTON",
+        "COMEDY_BUTTON",
+        "SUSPENSE_HOLD",
+        "TRANSITION_BRIDGE"
+      ]
+    },
+    "exit_state": {
+      "type": "string"
+    },
+    "ending_reason": {
+      "type": "string"
+    }
+  }
+}

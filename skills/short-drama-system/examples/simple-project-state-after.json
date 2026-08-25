@@ -1,0 +1,7 @@
+{
+  "runtime_state": {
+    "characters": {"林": {"position": "证物窗口", "emotion": "坚定", "costume": "深色外套"}},
+    "props": {"包裹": {"position": "证物窗口台面", "status": "破损", "owner": "证物窗口"}},
+    "scene": {"active_scene": "SC01", "time": "傍晚", "weather": "室内"}
+  }
+}

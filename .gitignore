@@ -1,0 +1,23 @@
+# Local and generated files
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.sqlite
+*.db
+__pycache__/
+*.pyc
+.gates.jsonl
+*.log
+outputs/
+generated/
+renders/
+tmp/
+cache/
+
+# Local project material
+projects/
+attachments/
+reports/
+repo-audits/

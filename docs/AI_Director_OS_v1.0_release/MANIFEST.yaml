@@ -1,0 +1,29 @@
+package_id: ai-director-os
+package_version: 1.0.0
+display_name: AI Director OS
+language: zh-CN
+entry_skill: skill/cinematic-ai-2d-director
+workspace_template: workspace-template/AI_Director_OS_CURRENT.md
+architecture_version: v3.2
+core_version: v3.1
+modules:
+  comedy:
+    version: v1.0
+    status: READY
+  action:
+    version: v0.2
+    status: EXPERIMENTAL
+  emotion:
+    status: NOT_IMPLEMENTED
+  suspense:
+    status: NOT_IMPLEMENTED
+adapters:
+  minimax_h3:
+    status: EXPERIMENTAL
+evidence_policy:
+  generation_qa_required_for_claims: true
+  single_failure_can_promote_core: false
+distribution_policy:
+  include_legacy_snapshots: false
+  include_project_specific_story_files: false
+  include_generated_media: false

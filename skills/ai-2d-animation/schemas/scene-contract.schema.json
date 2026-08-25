@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Scene Contract V1.5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scene_id",
+    "goal",
+    "conflict",
+    "participants",
+    "location_anchor",
+    "spatial_map",
+    "screen_direction_default",
+    "turn",
+    "exit_state"
+  ],
+  "properties": {
+    "scene_id": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "conflict": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location_anchor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "spatial_map": {
+      "type": "string"
+    },
+    "screen_direction_default": {
+      "type": "string"
+    },
+    "eyeline_map": {
+      "type": "string"
+    },
+    "prop_anchors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lighting_anchor": {
+      "type": "string"
+    },
+    "time_weather": {
+      "type": "string"
+    },
+    "tactic": {
+      "type": "string"
+    },
+    "complication": {
+      "type": "string"
+    },
+    "turn": {
+      "type": "string"
+    },
+    "exit_state": {
+      "type": "string"
+    },
+    "transition_to_next_scene": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "一图成片电影广告导演"
+  short_description: "从单张图片提取视觉基因并设计完整可执行的电影短片、预告片或广告项目"
+  default_prompt: "使用 $one-image-film-ad-director 把这张图片发展成一支完整的电影感广告短片。"

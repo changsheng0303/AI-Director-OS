@@ -1,0 +1,13 @@
+{
+  "name": "h3-prompt-writing",
+  "repository": "https://github.com/MiniMax-AI/MiniMax-H3",
+  "commit": "d21241f0a4b3acbb34c97dae47fa417b7065e438",
+  "commit_date": "2026-08-15T16:31:16+08:00",
+  "installed_path": "<codex-skills>/h3-prompt-writing",
+  "raw_sha256": {
+    "SKILL.md": "A7000443588CA3F145E3B3FD8900F14E0325DC460BD811268FAC89A9DC8E56D0",
+    "references/base-en.txt": "2CFEBC096A6E08370F288D468D90B60F7F9BCB938F94BF090816E910E48E75FC",
+    "references/ref-en.txt": "1E574F356716AD55612247FFB7BBCCBCDB484AD96599D63C7DCA1AF186B1FAB7"
+  },
+  "policy": "read_only_upstream_local_changes_in_overlay"
+}

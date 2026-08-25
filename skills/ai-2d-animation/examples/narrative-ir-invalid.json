@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "narrative_id": "NAR-BROKEN",
+  "source": {
+    "script_id": "SCRIPT-BROKEN",
+    "script_version": "v001",
+    "source_hash": "not-a-hash"
+  },
+  "canon": {
+    "locked": false,
+    "plot_change_allowed": true,
+    "dialogue_policy": "rewrite_freely"
+  },
+  "story": {"premise": "Broken fixture", "story_question": "Will validation fail?"},
+  "characters": [
+    {
+      "character_id": "CHAR-A",
+      "name": "A",
+      "motivation": "Test failures.",
+      "entry_state": {},
+      "exit_state": {},
+      "knowledge_before": ["INFO-1"],
+      "knowledge_after": [],
+      "status_history": [{"event_id": "EV-001", "status": "dead"}]
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "SC-001",
+      "order": 1,
+      "objective": "Fail.",
+      "conflict": "Fail.",
+      "turning_point": "Fail.",
+      "emotional_delta": "none",
+      "entry_state": {},
+      "exit_state": {},
+      "event_ids": ["EV-001", "EV-002"]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EV-001",
+      "scene_id": "SC-001",
+      "order": 1,
+      "cause_ids": ["EV-002"],
+      "action": "A dies.",
+      "consequence": "A is dead.",
+      "participants": ["CHAR-A"],
+      "mode": "present"
+    },
+    {
+      "event_id": "EV-002",
+      "scene_id": "SC-001",
+      "order": 2,
+      "cause_ids": ["EV-001"],
+      "action": "A acts after death.",
+      "consequence": "Continuity breaks.",
+      "participants": ["CHAR-A"],
+      "mode": "present"
+    }
+  ],
+  "continuity": {
+    "locations": [{"location_id": "LOC-1", "name": "Room"}],
+    "props": [
+      {
+        "prop_id": "PROP-1",
+        "name": "Glass",
+        "state_history": [
+          {"event_id": "EV-001", "status": "destroyed", "location_id": "LOC-1"},
+          {"event_id": "EV-002", "status": "intact", "location_id": "LOC-1"}
+        ]
+      }
+    ]
+  },
+  "promises": [
+    {
+      "promise_id": "PROMISE-1",
+      "planted_event_id": "EV-002",
+      "payoff_event_id": "EV-001",
+      "status": "paid_off"
+    }
+  ]
+}

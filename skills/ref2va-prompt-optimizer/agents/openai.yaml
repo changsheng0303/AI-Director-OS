@@ -1,0 +1,4 @@
+interface:
+  display_name: "MiniMax H3 Ref2VA 提示词优化器"
+  short_description: "将模糊创意转换为标准六段式 Ref2VA 英文提示词"
+  default_prompt: "使用 $ref2va-prompt-optimizer 将我的模糊视频创意和参考素材整理成可直接提交的 MiniMax H3 Ref2VA 提示词。"

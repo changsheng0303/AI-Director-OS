@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Video Prompt Trace V1.4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "shot_id",
+    "shot_version",
+    "camera_logic",
+    "camera_necessity",
+    "locked_variables",
+    "changed_variables",
+    "primary_motion",
+    "trigger",
+    "start_state",
+    "end_state"
+  ],
+  "properties": {
+    "shot_id": {
+      "type": "string"
+    },
+    "shot_version": {
+      "type": "string"
+    },
+    "camera_logic": {
+      "type": "string"
+    },
+    "camera_necessity": {
+      "type": "string",
+      "enum": [
+        "information",
+        "emotion",
+        "spatial_understanding",
+        "none"
+      ]
+    },
+    "locked_variables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "changed_variables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primary_motion": {
+      "type": "string"
+    },
+    "trigger": {
+      "type": "string"
+    },
+    "start_state": {
+      "type": "string"
+    },
+    "end_state": {
+      "type": "string"
+    }
+  }
+}

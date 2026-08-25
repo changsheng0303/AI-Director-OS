@@ -1,0 +1,4 @@
+interface:
+  display_name: "波普视觉广告导演"
+  short_description: "为快消品牌设计高饱和、多巴胺、混合媒材与高频快切视觉广告分镜"
+  default_prompt: "使用 $pop-visual-ad-director 为这个产品设计一支高饱和波普风快切广告。"

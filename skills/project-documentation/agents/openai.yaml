@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目文档"
+  short_description: "创建和更新 Markdown 项目档案与正式 Word 项目说明书"
+  default_prompt: "使用 $project-documentation 根据当前项目资料生成 Markdown 项目档案和 Word 项目说明书。"

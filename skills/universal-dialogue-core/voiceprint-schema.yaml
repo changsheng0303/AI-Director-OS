@@ -1,0 +1,86 @@
+version: 2.1
+schema: universal_dialogue_voiceprint
+
+character:
+  name: ""
+  identity: ""
+  stable_traits: []
+  core_values: []
+
+stable_voice:
+  sentence_length: variable
+  directness: 3
+  emotional_exposure: 2
+  politeness: 3
+  vocabulary_level: neutral
+  rhythm: even
+  humor_style: none
+  aggression_style: ""
+  hesitation_style: ""
+  avoidance_style: ""
+  interruption_style: ""
+  metaphor_usage: 1
+  honorifics: ""
+  catchphrase_limit: low
+
+information_behavior:
+  volunteers_information: 2
+  asks_directly: 3
+  hides_knowledge_by: ""
+  lies_by: ""
+  corrects_others_by: ""
+
+relationship_variants:
+  close_people: ""
+  authority: ""
+  strangers: ""
+  rivals: ""
+  vulnerable_target: ""
+
+emotion_variants:
+  affection: ""
+  anger: ""
+  embarrassment: ""
+  fear: ""
+  guilt: ""
+  grief: ""
+  excitement: ""
+
+stress_shift:
+  low_pressure: ""
+  medium_pressure: ""
+  high_pressure: ""
+
+boundaries:
+  never_says: []
+  avoids_topics: []
+  knowledge_limits: []
+  forbidden_style: []
+
+continuity:
+  recurring_phrases: []
+  relationship_specific_changes: {}
+  evolution_notes: []
+
+scene_state_overlay:
+  current_emotion: ""
+  emotional_intensity: 0
+  current_goal: ""
+  current_tactic: ""
+  relationship_target: ""
+  recent_knowledge_delta: []
+  pressure_shift: ""
+
+listener_strategy:
+  assumes_others_know_too_much: 0
+  assumes_others_know_too_little: 0
+  tests_knowledge_by: ""
+  reacts_to_being_misunderstood_by: ""
+  repairs_misunderstanding_by: ""
+
+turn_behavior:
+  response_directness: 3
+  ignores_questions_when: ""
+  redirects_when: ""
+  challenges_premise_when: ""
+  yields_floor_when: ""

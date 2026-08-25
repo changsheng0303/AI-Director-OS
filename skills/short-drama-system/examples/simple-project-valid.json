@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.1",
+  "project_id": "SIMPLE-001",
+  "title": "车站证据",
+  "current_step": "video",
+  "canon_lite": {
+    "version": "v1",
+    "locked_events": [
+      {"event_id": "EV01", "summary": "林携带证据进入车站"},
+      {"event_id": "EV02", "summary": "包裹破损露出照片"}
+    ],
+    "locked_dialogue": [{"dialogue_id": "D001", "text": "我会把它交出去。"}],
+    "locked_characters": ["林"],
+    "prohibited_changes": ["不得把照片改成信件", "不得修改 D001"]
+  },
+  "story_map": {
+    "premise": "林必须决定是否提交会伤害家人的证据。",
+    "protagonist": "林",
+    "objective": "把证据交到窗口。",
+    "conflict": "证据会证明哥哥有罪。",
+    "emotional_change": "戒备到坚定",
+    "scenes": [
+      {
+        "scene_id": "SC01",
+        "summary": "包裹在车站破损，林看见照片。",
+        "objective": "让林发现证据会伤害哥哥。",
+        "characters": ["林"],
+        "required_events": ["EV01", "EV02"],
+        "dialogue_ids": ["D001"],
+        "entry_state": "包裹密封",
+        "exit_state": "照片露出",
+        "spatial_lock": {"林": "闸机左侧", "包裹": "林左臂下"},
+        "tone": "克制悬疑",
+        "asset_refs": ["AS01", "AS02"],
+        "state_refs": ["林", "包裹"]
+      }
+    ]
+  },
+  "runtime_state": {
+    "characters": {"林": {"position": "闸机左侧", "emotion": "戒备", "costume": "深色外套"}},
+    "props": {"包裹": {"position": "林左臂下", "status": "密封", "owner": "林"}},
+    "scene": {"active_scene": "SC01", "time": "傍晚", "weather": "室内"}
+  },
+  "shots": [
+    {"shot_id": "SH01", "source_scene": "SC01", "duration_seconds": 3, "subject": "林与包裹", "action": "林穿过闸机，包裹勾住栏杆。", "start_state": "包裹密封", "end_state": "包裹勾住栏杆", "dialogue_ids": [], "asset_refs": ["AS01", "AS02"]},
+    {"shot_id": "SH02", "source_scene": "SC01", "duration_seconds": 3, "subject": "包裹与照片", "action": "林接住包裹，照片从裂口露出。", "start_state": "包裹勾住栏杆", "end_state": "照片露出", "dialogue_ids": ["D001"], "asset_refs": ["AS01", "AS02"]}
+  ],
+  "assets": [
+    {"asset_id": "AS01", "type": "character", "description": "林的锁定外观", "status": "ready"},
+    {"asset_id": "AS02", "type": "prop", "description": "证据包裹与照片", "status": "ready"}
+  ],
+  "prompt_jobs": [
+    {"job_id": "JOB01", "engine": "Seedance", "shot_ids": ["SH01", "SH02"], "status": "validated"}
+  ],
+  "warnings": []
+}

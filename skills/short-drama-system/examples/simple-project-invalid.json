@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.1",
+  "project_id": "BROKEN",
+  "title": "Broken",
+  "current_step": "video",
+  "canon_lite": {
+    "version": "v1",
+    "locked_events": [{"event_id": "EV01", "summary": "事件"}],
+    "locked_dialogue": [{"dialogue_id": "D001", "text": ""}],
+    "locked_characters": [],
+    "prohibited_changes": []
+  },
+  "story_map": {
+    "premise": "",
+    "protagonist": "",
+    "objective": "",
+    "conflict": "",
+    "emotional_change": "",
+    "scenes": []
+  },
+  "runtime_state": {"characters": {}, "props": {}, "scene": {}},
+  "shots": [
+    {"shot_id": "SH01", "source_scene": "SC404", "duration_seconds": -1, "subject": "A", "action": "B", "start_state": "x", "end_state": "y", "dialogue_ids": ["D404"], "asset_refs": ["AS404"]}
+  ],
+  "assets": [],
+  "prompt_jobs": [],
+  "warnings": []
+}

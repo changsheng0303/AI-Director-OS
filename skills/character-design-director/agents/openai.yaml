@@ -1,0 +1,4 @@
+interface:
+  display_name: "影视角色设计导演"
+  short_description: "把角色内核、行为与视觉编码转化为可验证的角色设定包和概念图提示词"
+  default_prompt: "使用 $character-design-director 把这个角色概念发展成完整、可辨识的影视角色设定包。"

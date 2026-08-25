@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IP Foundation Package V1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "foundation_id", "foundation_version", "project", "seed", "facts", "entities", "cast", "relationships", "constraints", "canon", "audit"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "foundation_id": {"type": "string", "minLength": 1},
+    "foundation_version": {"type": "string", "pattern": "^v[0-9]{3}$"},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_id", "title"],
+      "properties": {
+        "project_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "format": {"type": "string"},
+        "platform": {"type": "string"},
+        "audience": {"type": "string"},
+        "orientation": {"type": "string"}
+      }
+    },
+    "seed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_input", "extracted_fact_ids", "unresolved_fields"],
+      "properties": {
+        "raw_input": {"type": "string", "minLength": 1},
+        "extracted_fact_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "unresolved_fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["field", "critical"],
+            "properties": {
+              "field": {"type": "string"},
+              "critical": {"type": "boolean"},
+              "reason": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "path", "value", "layer", "origin", "authority", "confidence", "evidence"],
+        "properties": {
+          "fact_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "value": {},
+          "layer": {"type": "string", "enum": ["static", "dynamic"]},
+          "origin": {"type": "string", "enum": ["user", "imported", "llm_extraction", "ai_proposal", "derived"]},
+          "authority": {"type": "string", "enum": ["locked", "pending", "rejected"]},
+          "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+          "evidence": {"type": "array", "items": {"type": "string"}},
+          "accepted_by": {"type": "string"}
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entity_id", "entity_type", "name", "importance", "fact_ids", "narrative_functions", "narrative_relevance"],
+        "properties": {
+          "entity_id": {"type": "string", "minLength": 1},
+          "entity_type": {"type": "string", "enum": ["world", "character", "pet", "location", "faction", "rule", "object", "culture"]},
+          "name": {"type": "string", "minLength": 1},
+          "importance": {"type": "string", "enum": ["foundation", "protagonist", "main", "supporting", "recurring", "utility"]},
+          "fact_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "narrative_functions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "narrative_relevance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["impact", "used_by"],
+            "properties": {
+              "impact": {"type": "string", "enum": ["none", "low", "medium", "high"]},
+              "used_by": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+            }
+          }
+        }
+      }
+    },
+    "cast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["members"],
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["entity_id", "kind", "presentation", "cast_role", "production_depth"],
+            "properties": {
+              "entity_id": {"type": "string"},
+              "kind": {"type": "string", "enum": ["human", "animal", "robot", "supernatural", "creature", "other"]},
+              "presentation": {"type": "string", "enum": ["male", "female", "unspecified", "not_applicable"]},
+              "cast_role": {"type": "string", "enum": ["protagonist", "main", "supporting", "recurring", "utility"]},
+              "production_depth": {"type": "string", "enum": ["skeleton", "bible", "production"]}
+            }
+          }
+        },
+        "declared_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["relationship_id", "from", "to", "public_relation", "dimensions", "asymmetry", "evidence", "narrative_function"],
+        "properties": {
+          "relationship_id": {"type": "string", "minLength": 1},
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+          "public_relation": {"type": "string"},
+          "private_relation": {"type": "string"},
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "trust": {"type": "string", "enum": ["unknown", "low", "medium", "high"]},
+              "affection": {"type": "string", "enum": ["unknown", "low", "medium", "high"]},
+              "tension": {"type": "string", "enum": ["unknown", "low", "medium", "high"]},
+              "dependency": {"type": "string", "enum": ["unknown", "low", "medium", "high"]}
+            }
+          },
+          "asymmetry": {"type": "boolean"},
+          "evidence": {"type": "array", "items": {"type": "string"}},
+          "narrative_function": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_story_scope", "prohibited_assumptions"],
+      "properties": {
+        "allowed_story_scope": {"type": "array", "items": {"type": "string"}},
+        "prohibited_assumptions": {"type": "array", "items": {"type": "string"}},
+        "production_constraints": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "canon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locked", "locked_fact_ids", "open_noncritical_questions"],
+      "properties": {
+        "locked": {"type": "boolean"},
+        "locked_fact_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "open_noncritical_questions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["DRAFT", "BLOCKED", "FOUNDATION_LOCKED"]},
+        "semantic_findings": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

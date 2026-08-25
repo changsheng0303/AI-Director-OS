@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "foundation_id": "FOUNDATION-BROKEN",
+  "foundation_version": "v001",
+  "project": {"project_id": "IP-BROKEN", "title": "Broken"},
+  "seed": {"raw_input": "一个创意", "extracted_fact_ids": [], "unresolved_fields": [{"field": "story.premise", "critical": true}]},
+  "facts": [
+    {"fact_id": "FACT-001", "path": "character.CH-001.current_outfit", "value": "校服", "layer": "dynamic", "origin": "ai_proposal", "authority": "locked", "confidence": "low", "evidence": []},
+    {"fact_id": "FACT-002", "path": "world.setting", "value": "未知", "layer": "static", "origin": "ai_proposal", "authority": "pending", "confidence": "low", "evidence": []}
+  ],
+  "entities": [
+    {"entity_id": "CH-001", "entity_type": "character", "name": "A", "importance": "protagonist", "fact_ids": ["FACT-001", "FACT-404"], "narrative_functions": ["protagonist"], "narrative_relevance": {"impact": "high", "used_by": []}}
+  ],
+  "cast": {"members": [{"entity_id": "CH-001", "kind": "human", "presentation": "female", "cast_role": "protagonist", "production_depth": "skeleton"}], "declared_counts": {"human_female": 2}},
+  "relationships": [{"relationship_id": "REL-001", "from": "CH-001", "to": "CH-404", "public_relation": "friend", "dimensions": {}, "asymmetry": false, "evidence": [], "narrative_function": []}],
+  "constraints": {"allowed_story_scope": [], "prohibited_assumptions": []},
+  "canon": {"locked": true, "locked_fact_ids": ["FACT-001", "FACT-002"], "open_noncritical_questions": []},
+  "audit": {"status": "FOUNDATION_LOCKED", "semantic_findings": []}
+}

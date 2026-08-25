@@ -1,0 +1,102 @@
+version: 2.1
+name: universal_dialogue_scene_function_router
+
+routing:
+  default_primary: none
+  standard_max_primary: 1
+  deep_max_sequential_primary_phases: 2
+  max_modifiers: 1
+  load_all: false
+  parallel_primary_loading: false
+  principle: route_by_dialogue_behavior_not_genre
+
+priority:
+  - safety
+  - character_truth
+  - knowledge_boundary
+  - listener_model
+  - scene_change
+  - continuity
+  - primary_scene_function
+  - structural_modifier
+
+routing_logic:
+  - when: 核心问题是“双方目标不能同时满足”
+    choose: conflict
+  - when: 核心问题是“我要从对方那里获得或验证事实”
+    choose: interrogation
+  - when: 核心问题是“我必须回应，但不能暴露某个事实/感情/动机”
+    choose: concealment
+  - when: 核心问题是“双方在交换条件、利益、承诺或让步”
+    choose: negotiation
+  - when: 核心问题是“我要冒风险让对方更接近真实的我”
+    choose: intimacy
+  - when: 核心问题是“受损关系是否以及如何被修复”
+    choose: reconciliation
+  - when: 核心问题是“必须让对方/观众获得当前行动所需信息”
+    choose: exposition_delivery
+  - when: 核心问题是“通过小目标和习惯维持人物关系质感”
+    choose: casual_exchange
+  - when: 核心问题是“角色原本的情绪控制策略失效并改变状态”
+    choose: emotional_turn
+
+conflict_resolution:
+  - interrogation_vs_concealment: 按推动场景变化的一方选 primary；另一方机制写入对手 tactic，不并行加载两个 Pack。
+  - conflict_vs_negotiation: 若存在可交换条件与让步空间，选 negotiation；若核心是边界/目标不可兼容，选 conflict。
+  - intimacy_vs_reconciliation: 若先有明确关系损伤待修复，选 reconciliation；否则选 intimacy。
+  - exposition_vs_any: exposition 仅当“信息传递本身”是场景主要任务时做 primary；否则信息规则由 Core 处理。
+  - emotional_turn_vs_any: 若情绪变化只是其他功能的结果，不做 primary；只有情绪控制失效本身是场景主转折时才选。
+
+phase_transition_policy:
+  enabled_in: DEEP
+  default: disabled
+  max_transitions: 1
+  rule: 只有在某个可指出的 trigger 后，对话行为机制本身发生变化，才允许 phase 2；两个 primary 永不并行。
+  trigger_examples:
+    - 新证据使“审问”转为“冲突”
+    - 隐瞒失败后转为“情绪转折”
+    - 谈判破裂后转为“冲突”
+    - 具体道歉被接受后转为“亲密”
+  reject_if:
+    - 只是同一场景同时包含两种表面特征
+    - 只是为了加载更多规则
+    - phase 2 不改变角色 tactic / pressure / payoff
+  representation:
+    phase_1: primary_function
+    transition_trigger: observable_event_or_line
+    phase_2: primary_function
+
+primary_functions:
+  conflict:
+    file: scene-functions/conflict.md
+    triggers: [目标正面冲突, 争执, 对抗, 边界冲突, 价值冲突]
+  concealment:
+    file: scene-functions/concealment.md
+    triggers: [隐瞒, 撒谎, 不愿承认, 避免暴露, 半真半假]
+  interrogation:
+    file: scene-functions/interrogation.md
+    triggers: [逼问, 审问, 盘问, 追问事实, 验证说法]
+  negotiation:
+    file: scene-functions/negotiation.md
+    triggers: [谈条件, 交换, 说服, 妥协, 利益协商]
+  intimacy:
+    file: scene-functions/intimacy.md
+    triggers: [拉近关系, 暴露脆弱, 确认信任, 私密分享, 边界靠近]
+  reconciliation:
+    file: scene-functions/reconciliation.md
+    triggers: [和解, 修复关系, 道歉, 恢复合作, 降低敌意]
+  exposition_delivery:
+    file: scene-functions/exposition-delivery.md
+    triggers: [必须交代信息, 说明规则, 传递背景, 告知计划, 解释必要事实]
+  casual_exchange:
+    file: scene-functions/casual-exchange.md
+    triggers: [闲聊, 生活对话, 日常互动, 小事, 无强冲突交流]
+  emotional_turn:
+    file: scene-functions/emotional-turn.md
+    triggers: [情绪爆发, 情绪转折, 承认感受, 失控, 克制崩裂]
+
+structural_modifiers:
+  group_dialogue:
+    file: scene-functions/group-dialogue.md
+    condition: 三名及以上活跃角色共同影响场景策略、信息、注意力或联盟
+    rule: 只能作为 modifier；不得取代 primary scene function

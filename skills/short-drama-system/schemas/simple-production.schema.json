@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Simple Short Film Project Store V1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "title", "current_step", "canon_lite", "story_map", "runtime_state", "shots", "assets", "prompt_jobs", "warnings"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "current_step": {
+      "type": "string",
+      "enum": ["project-script", "review", "storyboard", "visual", "video", "delivery"]
+    },
+    "canon_lite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "locked_events", "locked_dialogue", "locked_characters", "prohibited_changes"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "fact_basis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["fact_id", "value", "authority"],
+            "properties": {
+              "fact_id": {"type": "string", "minLength": 1},
+              "value": {"type": "string", "minLength": 1},
+              "authority": {"type": "string", "enum": ["user_locked", "source_evidence", "ai_proposal", "open_noncritical"]},
+              "evidence": {"type": "string"}
+            }
+          }
+        },
+        "locked_events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["event_id", "summary"],
+            "properties": {
+              "event_id": {"type": "string", "minLength": 1},
+              "summary": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "locked_dialogue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dialogue_id", "text"],
+            "properties": {
+              "dialogue_id": {"type": "string", "minLength": 1},
+              "text": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "locked_characters": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "prohibited_changes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "story_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["premise", "protagonist", "objective", "conflict", "emotional_change", "scenes"],
+      "properties": {
+        "premise": {"type": "string"},
+        "protagonist": {"type": "string"},
+        "objective": {"type": "string"},
+        "conflict": {"type": "string"},
+        "emotional_change": {"type": "string"},
+        "scenes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["scene_id", "summary", "objective", "characters", "required_events", "dialogue_ids", "entry_state", "exit_state", "spatial_lock", "tone", "asset_refs", "state_refs"],
+            "properties": {
+              "scene_id": {"type": "string", "minLength": 1},
+              "summary": {"type": "string", "minLength": 1},
+              "objective": {"type": "string", "minLength": 1},
+              "characters": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "required_events": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "dialogue_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "entry_state": {"type": "string"},
+              "exit_state": {"type": "string"},
+              "spatial_lock": {"type": "object"},
+              "tone": {"type": "string"},
+              "asset_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "state_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "beats": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["beat_id", "kind", "summary"],
+                  "properties": {
+                    "beat_id": {"type": "string", "minLength": 1},
+                    "kind": {"type": "string", "enum": ["action", "dialogue", "event", "transition"]},
+                    "summary": {"type": "string", "minLength": 1},
+                    "dialogue_id": {"type": "string", "minLength": 1}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "runtime_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["characters", "props", "scene"],
+      "properties": {
+        "characters": {"type": "object", "additionalProperties": {"type": "object"}},
+        "props": {"type": "object", "additionalProperties": {"type": "object"}},
+        "scene": {"type": "object"}
+      }
+    },
+    "shots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["shot_id", "source_scene", "duration_seconds", "subject", "action", "start_state", "end_state", "dialogue_ids", "asset_refs"],
+        "properties": {
+          "shot_id": {"type": "string", "minLength": 1},
+          "source_scene": {"type": "string", "minLength": 1},
+          "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+          "subject": {"type": "string", "minLength": 1},
+          "action": {"type": "string", "minLength": 1},
+          "start_state": {"type": "string"},
+          "end_state": {"type": "string"},
+          "dialogue_ids": {"type": "array", "items": {"type": "string"}},
+          "asset_refs": {"type": "array", "items": {"type": "string"}},
+          "beat_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "segment_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset_id", "type", "description", "status"],
+        "properties": {
+          "asset_id": {"type": "string", "minLength": 1},
+          "type": {"type": "string", "enum": ["character", "scene", "prop", "style", "storyboard"]},
+          "description": {"type": "string"},
+          "status": {"type": "string", "enum": ["planned", "ready", "needs-review"]},
+          "anchors": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 2, "maxItems": 5, "uniqueItems": true},
+          "states": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "variant_of": {"type": "string", "minLength": 1},
+          "scale": {"type": "string", "enum": ["hand", "desktop", "furniture", "environment"]}
+        }
+      }
+    },
+    "prompt_jobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["job_id", "engine", "shot_ids", "status"],
+        "properties": {
+          "job_id": {"type": "string", "minLength": 1},
+          "engine": {"type": "string", "minLength": 1},
+          "shot_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "status": {"type": "string", "enum": ["planned", "ready", "validated", "failed"]}
+        }
+      }
+    },
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  }
+}

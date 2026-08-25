@@ -1,0 +1,4 @@
+interface:
+  display_name: "世界观与角色圣经系统"
+  short_description: "从创意种子建立可审计、可交接的世界观、角色与关系 Canon"
+  default_prompt: "使用 $ip-foundation-engine 从这个创意种子建立可交接给剧本系统的世界观与角色圣经。"

@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Creative Compiler Narrative IR V1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "narrative_id",
+    "source",
+    "canon",
+    "story",
+    "characters",
+    "scenes",
+    "events",
+    "continuity",
+    "promises"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "narrative_id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script_id", "script_version", "source_hash"],
+      "properties": {
+        "script_id": {"type": "string", "minLength": 1},
+        "script_version": {"type": "string", "minLength": 1},
+        "source_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+        "source_path": {"type": "string"},
+        "extracted_at": {"type": "string"}
+      }
+    },
+    "foundation_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["foundation_id", "foundation_version", "foundation_hash", "locked_entity_ids", "locked_rule_ids"],
+      "properties": {
+        "foundation_id": {"type": "string", "minLength": 1},
+        "foundation_version": {"type": "string", "minLength": 1},
+        "foundation_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+        "locked_entity_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "locked_rule_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "canon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locked", "plot_change_allowed", "dialogue_policy"],
+      "properties": {
+        "locked": {"type": "boolean", "const": true},
+        "plot_change_allowed": {"type": "boolean", "const": false},
+        "dialogue_policy": {
+          "type": "string",
+          "enum": ["verbatim", "approved_changes_only"]
+        },
+        "approved_change_ids": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "story": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["premise", "story_question"],
+      "properties": {
+        "premise": {"type": "string", "minLength": 1},
+        "story_question": {"type": "string", "minLength": 1},
+        "theme": {"type": "string"},
+        "ending_function": {"type": "string"}
+      }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["character_id", "name", "motivation", "entry_state", "exit_state", "knowledge_before", "knowledge_after"],
+        "properties": {
+          "character_id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "motivation": {"type": "string", "minLength": 1},
+          "entry_state": {"type": "object"},
+          "exit_state": {"type": "object"},
+          "knowledge_before": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "knowledge_after": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "status_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["event_id", "status"],
+              "properties": {
+                "event_id": {"type": "string"},
+                "status": {"type": "string", "enum": ["alive", "dead", "missing", "incapacitated", "unknown"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scene_id", "order", "objective", "conflict", "turning_point", "emotional_delta", "entry_state", "exit_state", "event_ids"],
+        "properties": {
+          "scene_id": {"type": "string", "minLength": 1},
+          "order": {"type": "integer", "minimum": 1},
+          "objective": {"type": "string", "minLength": 1},
+          "conflict": {"type": "string", "minLength": 1},
+          "turning_point": {"type": "string", "minLength": 1},
+          "emotional_delta": {"type": "string", "minLength": 1},
+          "entry_state": {"type": "object"},
+          "exit_state": {"type": "object"},
+          "event_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true}
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id", "scene_id", "order", "cause_ids", "action", "consequence", "participants"],
+        "properties": {
+          "event_id": {"type": "string", "minLength": 1},
+          "scene_id": {"type": "string", "minLength": 1},
+          "order": {"type": "integer", "minimum": 1},
+          "cause_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "action": {"type": "string", "minLength": 1},
+          "consequence": {"type": "string", "minLength": 1},
+          "decision": {"type": "string"},
+          "participants": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "mentions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "mode": {"type": "string", "enum": ["present", "flashback", "dream", "hypothetical"]},
+          "knowledge_changes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["character_id", "info_id", "source"],
+              "properties": {
+                "character_id": {"type": "string"},
+                "info_id": {"type": "string"},
+                "source": {"type": "string", "enum": ["witnessed", "hearsay", "deduced", "document", "told"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locations", "props"],
+      "properties": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["location_id", "name"],
+            "properties": {
+              "location_id": {"type": "string"},
+              "name": {"type": "string"}
+            }
+          }
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["prop_id", "name", "state_history"],
+            "properties": {
+              "prop_id": {"type": "string"},
+              "name": {"type": "string"},
+              "state_history": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["event_id", "status"],
+                  "properties": {
+                    "event_id": {"type": "string"},
+                    "status": {"type": "string", "enum": ["intact", "damaged", "destroyed", "lost", "transferred", "unknown"]},
+                    "holder_id": {"type": "string"},
+                    "location_id": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "promises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["promise_id", "planted_event_id", "status"],
+        "properties": {
+          "promise_id": {"type": "string"},
+          "planted_event_id": {"type": "string"},
+          "payoff_event_id": {"type": "string"},
+          "status": {"type": "string", "enum": ["planted", "advanced", "paid_off", "abandoned"]},
+          "abandon_reason": {"type": "string"}
+        }
+      }
+    }
+  }
+}

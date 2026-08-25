@@ -1,0 +1,50 @@
+[
+  {
+    "id": "promo_skincare_60s",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to write a 60-second vertical skincare dramatic ad with a strong opening hook, compliant CTA, and no exaggerated efficacy claims.",
+    "expected_mode": "Full Script + Compliance Check"
+  },
+  {
+    "id": "family_reversal_4min",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to draft a 4-minute family reversal short film with a complete character choice and emotional payoff.",
+    "expected_mode": "Full Script"
+  },
+  {
+    "id": "vertical_comeback_20ep",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to plan a 20-episode vertical comeback micro-drama. Give detailed outlines for the first 3 episodes and a full-season cliffhanger table.",
+    "expected_mode": "Outline"
+  },
+  {
+    "id": "horizontal_suspense_12ep",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to develop a 12-episode horizontal suspense short drama with main line, clue table, and payoff plan.",
+    "expected_mode": "Outline"
+  },
+  {
+    "id": "weak_script_rewrite",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master as a script doctor. Diagnose this weak draft, list problems by severity, and rewrite it into a stronger shootable version: [insert draft].",
+    "expected_mode": "Review and Rewrite"
+  },
+  {
+    "id": "tiktok_english_pilot",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to create an English TikTok micro-drama pilot with commercial potential, but avoid hard-selling and include disclosure reminders.",
+    "expected_mode": "Full Script + Compliance Check"
+  },
+  {
+    "id": "news_release_non_trigger",
+    "type": "non_trigger",
+    "prompt": "Write a formal news release about a local business opening. Do not turn it into a video script.",
+    "expected_mode": "Do not invoke screenplay workflow"
+  },
+  {
+    "id": "china_ai_microdrama_risk",
+    "type": "trigger",
+    "prompt": "Use $screenplay-master to review a China-facing AI-generated micro-drama concept for compliance, copyright, AI labeling, and platform risk.",
+    "expected_mode": "Compliance Check"
+  }
+]

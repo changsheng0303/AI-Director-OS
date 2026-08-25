@@ -1,0 +1,48 @@
+version: 2.1
+schema: dialogue_continuity_ledger
+
+scene_id: ""
+
+facts:
+  known_by: {}
+  suspected_by: {}
+  false_beliefs_by: {}
+  forbidden_to_reveal_by: {}
+
+listener_models:
+  perceived_knowledge_by_pair: {}
+  perceived_suspicion_by_pair: {}
+  mistaken_assumptions_by_pair: {}
+
+secrets:
+  active: []
+  partially_revealed: []
+  fully_revealed: []
+
+claims_and_deception:
+  public_claims: []
+  active_lies: []
+  denials: []
+  contradictions_noticed: []
+  contradictions_unnoticed: []
+
+relationships:
+  state_by_pair: {}
+  milestones: []
+  unresolved_conflicts: []
+  promises: []
+  betrayals: []
+
+conversation_open_loops:
+  unanswered_questions: []
+  deferred_decisions: []
+  conversational_debts: []
+  pending_repair: []
+
+character_decisions:
+  active_commitments: []
+  abandoned_goals: []
+
+language_continuity:
+  stable_voice_notes: {}
+  temporary_state_changes: {}

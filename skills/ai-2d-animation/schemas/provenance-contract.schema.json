@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Creative Compiler Artifact Provenance Contract V1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_id", "artifact_type", "version", "content_hash", "parents", "canon_locked", "status"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "artifact_type": {
+      "type": "string",
+      "enum": ["ip_foundation", "creative_brief", "story_contract", "narrative_ir", "scene_contract", "shot_contract", "asset", "prompt", "generation", "editorial", "master"]
+    },
+    "version": {"type": "string", "minLength": 1},
+    "content_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+    "parents": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "canon_locked": {"type": "boolean"},
+    "approved_change_id": {"type": "string"},
+    "status": {"type": "string", "enum": ["DRAFT", "LOCKED", "INVALIDATED", "APPROVED", "SUPERSEDED"]},
+    "created_at": {"type": "string"},
+    "validator": {"type": "string"}
+  }
+}

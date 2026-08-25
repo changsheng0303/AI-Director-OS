@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Agent Handoff V1.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "project_id",
+    "from",
+    "to",
+    "state",
+    "input_artifacts",
+    "locked_constraints",
+    "required_output",
+    "validation",
+    "version",
+    "priority"
+  ],
+  "properties": {
+    "handoff_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "input_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "locked_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_output": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "version": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "NORMAL",
+        "HIGH",
+        "HERO"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.5",
+  "project": {
+    "project_id": "DEMO-001",
+    "title": "2D Animation Demo",
+    "artifact_version": "v001"
+  },
+  "state": {
+    "current": "INTAKE",
+    "history": []
+  },
+  "assets": [],
+  "scenes": [],
+  "shots": [],
+  "continuity": {},
+  "qa": {}
+}

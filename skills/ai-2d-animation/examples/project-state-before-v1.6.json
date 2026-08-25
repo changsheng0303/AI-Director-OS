@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.6",
+  "project": {"project_id": "P-DEMO", "title": "Demo", "artifact_version": "v001"},
+  "state": {"current": "SHOT_LOCKED", "history": []},
+  "assets": [],
+  "scenes": [],
+  "shots": [],
+  "continuity": {},
+  "qa": {},
+  "change_requests": [],
+  "artifact_registry": [
+    {"artifact_id": "STORY-1", "artifact_type": "story_contract", "version": "v001", "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "parents": [], "canon_locked": true, "status": "LOCKED"},
+    {"artifact_id": "NAR-1", "artifact_type": "narrative_ir", "version": "v001", "content_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "parents": ["STORY-1"], "canon_locked": true, "status": "LOCKED"},
+    {"artifact_id": "SHOT-1", "artifact_type": "shot_contract", "version": "v001", "content_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "parents": ["NAR-1"], "canon_locked": false, "status": "LOCKED"},
+    {"artifact_id": "PROMPT-1", "artifact_type": "prompt", "version": "v001", "content_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "parents": ["SHOT-1"], "canon_locked": false, "status": "LOCKED"}
+  ],
+  "invalidation_log": []
+}

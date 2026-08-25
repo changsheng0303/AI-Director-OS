@@ -1,0 +1,92 @@
+version: 2.1
+schema: universal_dialogue_scene_template
+
+# 题材无关的通用母模板。
+# 不要求每次填满；运行时按 mode 读取最小必要字段。
+
+minimal:
+  dialogue_load: FUNCTIONAL | INTERACTIVE | DRAMATIC
+  scene_change: "这场戏结束时，什么与开场不同？"
+  exit_condition: "达到什么结果后应该结束？"
+  speakers:
+    - name: ""
+      want: "我想让对方做/相信/承认/停止/提供什么？"
+      resistance: "为什么不能直接得到？"
+      known: []
+      suspected: []
+      hidden: []
+      thinks_other_knows: []
+      thinks_other_suspects: []
+      voice_hint: ""
+  must_convey: []
+  must_not_reveal: []
+  output_mode: dialogue
+
+standard:
+  dialogue_load:
+    start: FUNCTIONAL | INTERACTIVE | DRAMATIC
+    peak: FUNCTIONAL | INTERACTIVE | DRAMATIC
+    transition_trigger: ""
+  scene:
+    id: ""
+    location: ""
+    time: ""
+    situation: ""
+    previous_event: ""
+    scene_goal: ""
+    start_state: ""
+    required_end_state: ""
+    exit_condition: ""
+  characters:
+    - name: ""
+      stable_traits: []
+      relationship_to_others: {}
+      current_emotion: ""
+      public_goal: ""
+      hidden_goal: ""
+      fear: ""
+      knowledge: []
+      suspicions: []
+      secrets: []
+      perceived_knowledge_of_others: {}
+      perceived_suspicion_of_others: {}
+      mistaken_assumptions: []
+      speech_style: ""
+      forbidden_style: []
+  dialogue_constraints:
+    duration: ""
+    tone: ""
+    audience: ""
+    required_information: []
+    forbidden_information: []
+    continuity_notes: []
+    output_mode: dialogue
+
+internal_plan:
+  primary_scene_function: none
+  function_phase_sequence: []
+  structural_modifier: none
+  information_boundary: []
+  listener_model: []
+  open_questions: []
+  claims_in_play: []
+  lies_in_play: []
+  promises_in_play: []
+  beat_skeleton: []
+  target_state_delta:
+    information: none
+    belief: none
+    emotion: none
+    relationship: none
+    power: none
+    decision: none
+    action: none
+    unresolved_tension: none
+
+final_output:
+  final_dialogue: ""
+  minimal_micro_actions: []
+  state_delta: {}
+  open_loops_after_scene: []
+  warnings: []
+  score: null

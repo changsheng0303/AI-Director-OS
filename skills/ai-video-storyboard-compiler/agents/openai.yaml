@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI 视频分镜编译器"
+  short_description: "把剧本转译为连续、可生成、可校验的 AI 视频分镜"
+  default_prompt: "使用 $ai-video-storyboard-compiler 把这份剧本转换成可供 AI 视频模型执行的完整分镜。"

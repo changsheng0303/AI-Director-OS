@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Shot Contract / Shot IR V1.7",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "shot_id",
+    "purpose",
+    "beat",
+    "subject",
+    "acting",
+    "action",
+    "key_pose",
+    "composition",
+    "shot_size",
+    "camera_angle",
+    "camera_motion",
+    "screen_direction",
+    "timing",
+    "animation_treatment",
+    "continuity_in",
+    "continuity_out",
+    "generation_risk",
+    "acceptance_criteria",
+    "anime_treatment",
+    "visual_question",
+    "audience_knowledge",
+    "character_knowledge",
+    "information_withheld",
+    "reveal_point",
+    "emotional_landing",
+    "camera_strategy",
+    "camera_logic",
+    "camera_necessity",
+    "version",
+    "previous_shot",
+    "adjacency_type",
+    "start_state",
+    "end_state",
+    "spatial_anchor",
+    "subject_screen_position",
+    "gaze_match",
+    "action_match",
+    "prop_match",
+    "lighting_match",
+    "bridge_reason"
+  ],
+  "properties": {
+    "shot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scene_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]{3}$"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "beat": {
+      "type": "string",
+      "minLength": 1
+    },
+    "story_information": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script_hash", "narrative_ir_id", "narrative_ir_version", "scene_id", "beat_id"],
+      "properties": {
+        "script_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+        "narrative_ir_id": {"type": "string", "minLength": 1},
+        "narrative_ir_version": {"type": "string", "minLength": 1},
+        "scene_id": {"type": "string", "minLength": 1},
+        "beat_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "canon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plot_change_allowed", "dialogue_policy", "approved_change_ids"],
+      "properties": {
+        "plot_change_allowed": {"type": "boolean", "const": false},
+        "dialogue_policy": {"type": "string", "enum": ["verbatim", "approved_changes_only"]},
+        "approved_change_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "duration_seconds"],
+      "properties": {
+        "adapter": {"type": "string", "minLength": 1},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "model_constraints": {"type": "array", "items": {"type": "string"}},
+        "prompt_artifacts": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "coverage": {
+      "type": "string",
+      "enum": [
+        "covered",
+        "intentional_repeat",
+        "omitted_with_reason",
+        "nonvisual_context"
+      ]
+    },
+    "emotion_in": {
+      "type": "string"
+    },
+    "emotion_peak": {
+      "type": "string"
+    },
+    "emotion_out": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acting": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_pose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "composition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "shot_size": {
+      "type": "string",
+      "minLength": 1
+    },
+    "camera_angle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "camera_motion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "screen_direction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timing": {
+      "type": "string",
+      "minLength": 1
+    },
+    "animation_treatment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lighting_color": {
+      "type": "string"
+    },
+    "audio": {
+      "type": "string"
+    },
+    "transition": {
+      "type": "string"
+    },
+    "continuity_in": {
+      "type": "string",
+      "minLength": 1
+    },
+    "continuity_out": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asset_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generation_risk": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "budget_tier": {
+      "type": "string",
+      "enum": [
+        "L",
+        "M",
+        "H",
+        "HERO"
+      ]
+    },
+    "anime_treatment": {
+      "type": "string",
+      "enum": [
+        "REALISTIC-ANIME",
+        "SYMBOLIC",
+        "LIMITED",
+        "SAKUGA",
+        "COMEDY-SD",
+        "MOE"
+      ]
+    },
+    "nsfw_level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4,
+      "description": "内容分级字段，保持 V1.1 字段兼容。L2=穿着状态极大露出+遮挡；L3=脱衣裸露(暴露高于L2)+隔衣模拟，乳头/臀部必遮，止步于完全性行为之前；L4=露骨性内容(用户优先,平台不支持时降级L3)。"
+    },
+    "relationship_hint": {
+      "type": "string",
+      "description": "本镜要传达的角色关系线索(前史/称呼/道具/微表情),见 story-craft.md §1"
+    },
+    "motivation": {
+      "type": "string",
+      "description": "角色本镜行为的动机来源,须能被前史+关系解释,见 story-craft.md §3"
+    },
+    "visual_question": {
+      "type": "string"
+    },
+    "audience_knowledge": {
+      "type": "string"
+    },
+    "character_knowledge": {
+      "type": "string"
+    },
+    "information_withheld": {
+      "type": "string"
+    },
+    "reveal_point": {
+      "type": "string"
+    },
+    "emotional_landing": {
+      "type": "string"
+    },
+    "camera_strategy": {
+      "type": "string"
+    },
+    "camera_logic": {
+      "type": "string",
+      "enum": [
+        "ESTABLISH",
+        "OBSERVE",
+        "WITHHOLD",
+        "ALIGN",
+        "ESCALATE",
+        "REVEAL",
+        "MISDIRECT",
+        "RECONTEXTUALIZE",
+        "CONTRAST",
+        "RELEASE"
+      ]
+    },
+    "camera_necessity": {
+      "type": "string",
+      "enum": [
+        "information",
+        "emotion",
+        "spatial_understanding",
+        "none"
+      ]
+    },
+    "previous_shot": {
+      "type": "string"
+    },
+    "adjacency_type": {
+      "type": "string",
+      "enum": [
+        "CONTINUE",
+        "REACT",
+        "REVEAL",
+        "CUTAWAY",
+        "BRIDGE",
+        "CONTRAST",
+        "SCENE_BREAK",
+        "TIME_JUMP"
+      ]
+    },
+    "start_state": {
+      "type": "string"
+    },
+    "end_state": {
+      "type": "string"
+    },
+    "spatial_anchor": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subject_screen_position": {
+      "type": "string"
+    },
+    "gaze_match": {
+      "type": "string"
+    },
+    "action_match": {
+      "type": "string"
+    },
+    "prop_match": {
+      "type": "string"
+    },
+    "lighting_match": {
+      "type": "string"
+    },
+    "bridge_reason": {
+      "type": "string"
+    },
+    "transition_risk": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ending_function": {
+      "type": "string",
+      "enum": [
+        "ACTION_COMPLETE",
+        "REACTION_LANDING",
+        "REVEAL_LANDING",
+        "CHOICE_LANDING",
+        "CONSEQUENCE_LANDING",
+        "PROP_PAYOFF",
+        "RELATIONSHIP_LANDING",
+        "MOTION_CONTINUE",
+        "DIALOGUE_BUTTON",
+        "COMEDY_BUTTON",
+        "SUSPENSE_HOLD",
+        "TRANSITION_BRIDGE"
+      ]
+    },
+    "exit_state": {
+      "type": "string"
+    },
+    "ending_reason": {
+      "type": "string"
+    }
+  }
+}

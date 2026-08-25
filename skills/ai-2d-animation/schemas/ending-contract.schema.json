@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 2D Animation Ending Contract V1.6",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ending_function",
+    "exit_state"
+  ],
+  "properties": {
+    "ending_function": {
+      "type": "string",
+      "enum": [
+        "ACTION_COMPLETE",
+        "REACTION_LANDING",
+        "REVEAL_LANDING",
+        "CHOICE_LANDING",
+        "CONSEQUENCE_LANDING",
+        "PROP_PAYOFF",
+        "RELATIONSHIP_LANDING",
+        "MOTION_CONTINUE",
+        "DIALOGUE_BUTTON",
+        "COMEDY_BUTTON",
+        "SUSPENSE_HOLD",
+        "TRANSITION_BRIDGE"
+      ]
+    },
+    "exit_state": {
+      "type": "string"
+    },
+    "ending_reason": {
+      "type": "string"
+    },
+    "closure_strength": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "LIGHT",
+        "MEDIUM",
+        "HIGH"
+      ]
+    }
+  }
+}

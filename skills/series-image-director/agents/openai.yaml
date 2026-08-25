@@ -1,0 +1,4 @@
+interface:
+  display_name: "系列套图生成导演"
+  short_description: "从母版提示词、参考图和品牌资产设计风格统一且有变化的系列图像项目"
+  default_prompt: "使用 $series-image-director 把这份母版和参考素材发展成一套统一的系列图像。"

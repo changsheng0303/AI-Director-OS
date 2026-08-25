@@ -1,0 +1,8 @@
+{
+  "source_zip": "<source-package>/universal-dialogue-core-skill-v2.1.zip",
+  "source_zip_sha256": "C7382720DE2D499D4C631A7BD28E8A843C78B32CD74774E85260CA83C4F1B8E9",
+  "upstream_version": "2.1.0",
+  "source_skill_sha256": "A61FDD3F3AF3D078F7068C7405F9782238872EA65E9E74128D10FD76C7617DE5",
+  "snapshot_path": "G:/codex-AI测试/_upstream-snapshots/universal-dialogue-core-v2.1/universal-dialogue-core-skill-v2.1",
+  "policy": "preserve_source_optimize_installed_entrypoint"
+}

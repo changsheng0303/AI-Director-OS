@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.6",
+  "project": {"project_id": "P-DEMO", "title": "Demo", "artifact_version": "v002"},
+  "state": {"current": "BEAT_LOCKED", "history": []},
+  "assets": [],
+  "scenes": [],
+  "shots": [],
+  "continuity": {},
+  "qa": {},
+  "change_requests": [
+    {"change_id": "CHANGE-1", "status": "approved", "scope": ["STORY-1"], "reason": "User approved a new ending."}
+  ],
+  "artifact_registry": [
+    {"artifact_id": "STORY-1", "artifact_type": "story_contract", "version": "v002", "content_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "parents": [], "canon_locked": true, "approved_change_id": "CHANGE-1", "status": "LOCKED"},
+    {"artifact_id": "NAR-1", "artifact_type": "narrative_ir", "version": "v001", "content_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "parents": ["STORY-1"], "canon_locked": true, "status": "INVALIDATED"},
+    {"artifact_id": "SHOT-1", "artifact_type": "shot_contract", "version": "v001", "content_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "parents": ["NAR-1"], "canon_locked": false, "status": "INVALIDATED"},
+    {"artifact_id": "PROMPT-1", "artifact_type": "prompt", "version": "v001", "content_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "parents": ["SHOT-1"], "canon_locked": false, "status": "INVALIDATED"}
+  ],
+  "invalidation_log": [
+    {"event_id": "INVALIDATE-1", "cause_artifacts": ["STORY-1"], "affected_artifacts": ["NAR-1", "SHOT-1", "PROMPT-1"], "timestamp": "2026-08-19T22:00:00+08:00"}
+  ]
+}
