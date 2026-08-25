@@ -41,6 +41,8 @@ Maintain only a compact Story Map and Shot Table. Preserve dialogue and event Ca
 
 When a scene has compact beat IDs, each beat must be claimed by exactly one production shot in source order. Beat claiming is an optional deterministic aid, not a requirement to expose Narrative IR.
 
+For short-form and AI-video production, default to a **3–4 second average across the shot sequence**. This is a pacing target, never a per-shot timer. Cut only when emotion, information, subject, action phase, or eyeline/viewpoint changes; otherwise preserve the continuous shot even when it runs longer.
+
 ### 4. 视觉资产与故事板
 
 Use `character-design-director` for approved main-character design, `ai-image-assets` for asset inventory and prompts, and `series-image-director` only for a coherent multi-image set. Add a storyboard/contact-sheet preview when it materially helps review.

@@ -129,6 +129,7 @@ def validate(data, target_duration=None):
 
     total = 0.0
     previous_end = None
+    previous_source_scene = None
     claimed_by_scene = {scene_id: [] for scene_id in scenes}
     segment_scenes = {}
     closed_segments = set()
@@ -171,9 +172,18 @@ def validate(data, target_duration=None):
         elif active_segment is not None:
             closed_segments.add(active_segment)
             active_segment = None
+        cut_motivation = shot.get("cut_motivation")
+        valid_cut_motivations = {"scene_entry", "emotion_change", "information_change", "subject_change", "action_phase_change", "eyeline_or_viewpoint_change"}
+        if cut_motivation is not None and cut_motivation not in valid_cut_motivations:
+            errors.append(f"shot {shot_id} has invalid cut_motivation {cut_motivation}")
+        if previous_source_scene == source_scene and not cut_motivation:
+            warnings.append(f"shot {shot_id} has no cut_motivation; do not cut only to meet the 3-4s average")
+        if previous_source_scene != source_scene and cut_motivation not in {None, "scene_entry"}:
+            warnings.append(f"shot {shot_id} starts a scene but cut_motivation is {cut_motivation}, not scene_entry")
         if previous_end is not None and shot.get("start_state") and shot.get("start_state") != previous_end:
             warnings.append(f"shot {shot_id} start_state differs from previous end_state")
         previous_end = shot.get("end_state")
+        previous_source_scene = source_scene
 
     enforce_beat_coverage = step_index >= STEP_ORDER.index("storyboard") or any(shot.get("beat_refs") for shot in shots.values())
     if enforce_beat_coverage:
@@ -195,6 +205,13 @@ def validate(data, target_duration=None):
 
     if target_duration is not None and abs(total - target_duration) > 0.5:
         errors.append(f"duration {total:.2f}s differs from target {target_duration:.2f}s")
+    if shots:
+        average_shot_seconds = total / len(shots)
+        if average_shot_seconds < 3 or average_shot_seconds > 4:
+            warnings.append(
+                f"average shot duration is {average_shot_seconds:.2f}s; default short-form target is 3-4s, "
+                "but revise only when a real emotion/information/subject/action-phase/eyeline change supports the cut"
+            )
     if step_index >= STEP_ORDER.index("storyboard") and not shots:
         errors.append("storyboard or later step requires shots")
 

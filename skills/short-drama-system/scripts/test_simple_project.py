@@ -45,13 +45,14 @@ def main():
         {"beat_id": "B01", "kind": "action", "summary": "包裹勾住栏杆"},
         {"beat_id": "B02", "kind": "dialogue", "summary": "林决定提交证据", "dialogue_id": "D001"},
     ]
-    advanced["shots"][0].update({"beat_refs": ["B01"], "segment_id": "SEG01"})
-    advanced["shots"][1].update({"beat_refs": ["B02"], "segment_id": "SEG01"})
+    advanced["shots"][0].update({"beat_refs": ["B01"], "segment_id": "SEG01", "cut_motivation": "scene_entry"})
+    advanced["shots"][1].update({"beat_refs": ["B02"], "segment_id": "SEG01", "cut_motivation": "information_change"})
     advanced["assets"][1].update({"anchors": ["破损棕纸", "露出的照片角"], "states": ["密封", "破损"], "scale": "hand"})
 
     broken_advanced = copy.deepcopy(advanced)
     broken_advanced["canon_lite"]["fact_basis"][0]["evidence"] = ""
     broken_advanced["shots"][1]["beat_refs"] = ["B01"]
+    broken_advanced["shots"][1]["cut_motivation"] = "timer_target"
     broken_advanced["assets"][1]["anchors"] = ["唯一锚点"]
     broken_advanced["assets"][1]["variant_of"] = "AS404"
 

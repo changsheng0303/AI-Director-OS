@@ -22,8 +22,8 @@ Compile dramatic text into the smallest useful set of shots an AI video pipeline
 4. Default to a compact Story Map: premise, protagonist, objective, conflict, emotional change, and scene entry/exit summaries. Narrative IR is optional and must not be generated automatically unless the user explicitly requests full engineering mode.
 5. Build Runtime Map and Scene Geography before asset generation: lock entrances, exits, anchors, axis, screen direction, light, weather, and initial blocking. Emit asset requirements from this locked geography.
 6. Consume the approved visual asset list. Do not redesign a character, scene, or prop inside the Shot Table.
-7. Divide the scene into generation-sized segments based on action and transition logic, not an arbitrary fixed shot count.
-8. For each shot, emit the simplified Shot Table fields: shot ID, source scene, duration, subject, visible action, start/end state, dialogue IDs, and asset references. Emit full Shot IR, provenance, and renderer blocks only in explicit full engineering mode.
+7. Divide the scene into generation-sized segments based on action and transition logic, not an arbitrary fixed shot count. For short-form and AI-video work, target a **3–4 second average across the sequence**, but never cut merely because a timer reached that range.
+8. Cut only when at least one primary condition changes: emotion, information, subject, action phase, or eyeline/viewpoint. For each shot, emit the simplified Shot Table fields: shot ID, source scene, duration, primary `cut_motivation`, subject, visible action, start/end state, dialogue IDs, and asset references. The first shot of a scene may use `scene_entry`. Emit full Shot IR, provenance, and renderer blocks only in explicit full engineering mode.
 9. Maintain screen direction, eyelines, action matching, prop state, lighting, costume, geography, and emotional carry-over. Add a handoff card between independently generated segments.
 10. Run a final film-in-the-head pass and basic validation: IDs, total duration, exact dialogue references, asset references, and adjacent start/end states. Full Narrative/Shot IR gates are optional.
 
@@ -31,6 +31,7 @@ Compile dramatic text into the smallest useful set of shots an AI video pipeline
 
 - Lead with a short scene and continuity map, followed by the storyboard table and cross-segment handoffs.
 - Preserve `DIALOGUE_CANON.exact_text` verbatim. Design pauses, interruptions, reactions and optional micro-actions around it; any wording change requires an approved Dialogue Change Request rather than an inline rewrite.
+- Treat the 3–4 second average as an advisory sequence metric. Allow shorter inserts and reactions, and longer dialogue, silence, continuous blocking, establishing, or emotional holds when the content has not yet completed. Reject timer-only cuts.
 - Mark missing references explicitly; never pretend an unattached image was inspected.
 - Keep model-specific suffixes separate from dramatic shot content.
 - In default mode, update `simple-project.json`. In explicit full engineering mode, add source hashes, Narrative IR, Shot IR, renderer adapter, and approved change IDs.

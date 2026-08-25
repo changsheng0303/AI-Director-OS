@@ -135,7 +135,8 @@
           "dialogue_ids": {"type": "array", "items": {"type": "string"}},
           "asset_refs": {"type": "array", "items": {"type": "string"}},
           "beat_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-          "segment_id": {"type": "string", "minLength": 1}
+          "segment_id": {"type": "string", "minLength": 1},
+          "cut_motivation": {"type": "string", "enum": ["scene_entry", "emotion_change", "information_change", "subject_change", "action_phase_change", "eyeline_or_viewpoint_change"]}
         }
       }
     },
