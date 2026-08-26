@@ -11,6 +11,8 @@
 - `docs/AI_Director_OS_v1.0_release/`：AI Director OS 分发说明、Manifest 与工作区模板；
 - 各 Skill 自带的 references、schemas、scripts、examples 和本地校验工具。
 
+完整系统架构、剧本审稿路由和38个Skills说明见：[AI Director OS 整体系统与 Skills 说明](docs/AI-Director-OS-系统与Skills说明.md)。
+
 ## 推荐入口
 
 普通项目从 `short-drama-system` 开始。它支持：
