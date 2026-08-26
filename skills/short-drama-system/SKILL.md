@@ -86,6 +86,8 @@ Before a director, prompt adapter, or reviewer handles one scene, run `scripts/s
 
 Run `scripts/validate_simple_project.py` after structural edits. It checks ordinary references and duration plus any optional source facts, beat claims, segment grouping, and asset consistency metadata that are present. A missing optional layer is not an error.
 
+When source review, validation, user feedback, or actual generated media exposes a concrete failure, read [production-failure-loop.md](references/production-failure-loop.md) and record evidence in the project or repository failure registry. Repair the current project first. Do not turn one model failure or one creative preference into a universal rule; promote repeated failures only with evidence and a regression fixture.
+
 Foundation Hash, Narrative IR, Shot IR, Artifact Registry, State Diff, and multi-stage lock files are not required by default, including for long or multi-episode projects.
 
 ## Interaction Rules

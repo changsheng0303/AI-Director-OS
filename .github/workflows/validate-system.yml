@@ -1,0 +1,20 @@
+name: Validate AI Director OS
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check generated Skill index
+        run: python scripts/generate_skill_index.py --check
+      - name: Test simplified production base
+        run: python skills/short-drama-system/scripts/test_simple_project.py
+      - name: Validate failure registry
+        run: python skills/short-drama-system/scripts/validate_failure_registry.py quality/failure-registry.jsonl --summary

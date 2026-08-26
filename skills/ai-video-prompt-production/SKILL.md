@@ -31,6 +31,10 @@ Story / Shot IR / Assets
   → Engine Validator
 ```
 
+## Failure feedback
+
+After an engine validator, human review, or actual generation exposes a reproducible failure, report the engine, prompt job, affected shot/segment IDs, observed artifact evidence, root cause, local repair, and regression target to the project orchestrator. Format errors may be promoted immediately when the engine contract is objective; visual style preferences and one-off model behavior require repeated evidence before becoming shared rules.
+
 用户明确指定引擎时直接路由；未指定且最终格式会明显不同，先说明判断并询问。Video Prompt IR 是中立交接，不继承任何 Adapter 的正文语言、字段、长度或固定模板。
 
 ## H3 格式权威（仅目标引擎为 H3 时加载）

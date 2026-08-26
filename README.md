@@ -13,6 +13,10 @@
 
 完整系统架构、剧本审稿路由和38个Skills说明见：[AI Director OS 整体系统与 Skills 说明](docs/AI-Director-OS-系统与Skills说明.md)。
 
+第一次使用可直接阅读：[新手快速入口](docs/新手快速入口.md)。自动生成的能力与许可证清单见：[Skill Index](docs/SKILL_INDEX.md)。
+
+生产失败与用户反馈记录在 [`quality/failure-registry.jsonl`](quality/failure-registry.jsonl)，证据与规则提升流程见 `short-drama-system/references/production-failure-loop.md`。
+
 ## 推荐入口
 
 普通项目从 `short-drama-system` 开始。它支持：

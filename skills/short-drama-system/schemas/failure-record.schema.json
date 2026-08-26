@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Director OS Production Failure Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "date", "project_id", "stage", "evidence_type", "signature", "severity", "observed_failure", "evidence", "root_cause", "repair", "regression_target", "status", "occurrences"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^FAIL-[0-9]{8}-[0-9]{3}$"},
+    "date": {"type": "string", "format": "date"},
+    "project_id": {"type": "string", "minLength": 1},
+    "stage": {"type": "string", "enum": ["foundation", "screenplay", "storyboard", "asset", "video_prompt", "generation", "editing", "delivery"]},
+    "evidence_type": {"type": "string", "enum": ["source_logic", "validator_failure", "user_feedback", "generation_output"]},
+    "signature": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "severity": {"type": "string", "enum": ["critical", "major", "minor"]},
+    "observed_failure": {"type": "string", "minLength": 1},
+    "evidence": {"type": "string", "minLength": 1},
+    "artifact_path": {"type": ["string", "null"]},
+    "root_cause": {"type": "string", "minLength": 1},
+    "repair": {"type": "string", "minLength": 1},
+    "regression_target": {"type": "string"},
+    "status": {"type": "string", "enum": ["observed", "documented", "candidate", "covered", "needs_generation_proof"]},
+    "occurrences": {"type": "integer", "minimum": 1}
+  }
+}

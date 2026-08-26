@@ -26,6 +26,7 @@ Compile dramatic text into the smallest useful set of shots an AI video pipeline
 8. Cut only when at least one primary condition changes: emotion, information, subject, action phase, or eyeline/viewpoint. For each shot, emit the simplified Shot Table fields: shot ID, source scene, duration, primary `cut_motivation`, subject, visible action, start/end state, dialogue IDs, and asset references. The first shot of a scene may use `scene_entry`. Emit full Shot IR, provenance, and renderer blocks only in explicit full engineering mode.
 9. Maintain screen direction, eyelines, action matching, prop state, lighting, costume, geography, and emotional carry-over. Add a handoff card between independently generated segments.
 10. Run a final film-in-the-head pass and basic validation: IDs, total duration, exact dialogue references, asset references, and adjacent start/end states. Full Narrative/Shot IR gates are optional.
+11. If human review or actual generated media exposes a reproducible storyboard failure, return the affected shot/segment IDs, observed evidence, repair, and regression target to the orchestrator's failure registry. Do not generalize a single aesthetic preference into a global cutting rule.
 
 ## Output Contract
 
