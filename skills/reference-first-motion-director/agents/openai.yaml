@@ -1,0 +1,4 @@
+interface:
+  display_name: "参考先行动态视觉导演"
+  short_description: "规划整片，并逐项交付2K完成图与按内容定时的视频提示词"
+  default_prompt: "使用 $reference-first-motion-director 分析我的完整脚本：先保存完整视觉总表并展示动效制作清单；确认后按时间线逐项检索精确参考，每项交付一张2048×1152成片级参考图和一条按内容选择时长、带固定视频尾缀的AI视频提示词。"

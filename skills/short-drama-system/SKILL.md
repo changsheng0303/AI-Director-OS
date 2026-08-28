@@ -13,6 +13,8 @@ Act as the single director-facing entry point. Keep the user experience linear a
 - **小说改编制作**：从小说、故事或章节材料建立改编方案，再进入角色、美术、剧本与分镜；仍使用同一六步界面。
 - **单点制作**：只做剧本、审稿、分镜、资产、故事板、提示词或交付中的一个阶段。
 - **继续项目**：读取已有 `simple-project.json` 或已确认文件，从当前步骤继续。
+- **回退修订**：切回用户指定的上游层，保留旧版本，只把真实受影响的下游标记为可能过期；未经确认不自动重做。
+- **整片视觉导演**：口播、SRT、教程、评测或信息型宣传片需要画面职责分配与重点动态包装时，路由到 `reference-first-motion-director`。它拥有视觉总表和动效队列，不拥有剧情 Canon 或生产镜号。
 
 Do not ask the user to choose internal S-stage names.
 
@@ -39,6 +41,8 @@ Use `ai-video-storyboard-compiler` as the sole production shot-table authority. 
 
 Maintain only a compact Story Map and Shot Table. Preserve dialogue and event Canon, source scene, duration, visible action, and adjacent start/end states.
 
+For performance-critical dramatic scenes, let `ai-video-storyboard-compiler` apply its behavioral-performance reference. Performance direction may enrich visible behavior, listening, tactics, and beat changes, but it cannot change Canon dialogue or scene outcome.
+
 When a scene has compact beat IDs, each beat must be claimed by exactly one production shot in source order. Beat claiming is an optional deterministic aid, not a requirement to expose Narrative IR.
 
 For short-form and AI-video production, default to a **3–4 second average across the shot sequence**. This is a pacing target, never a per-shot timer. Cut only when emotion, information, subject, action phase, or eyeline/viewpoint changes; otherwise preserve the continuous shot even when it runs longer.
@@ -48,6 +52,8 @@ For short-form and AI-video production, default to a **3–4 second average acro
 Use `character-design-director` for approved main-character design, `ai-image-assets` for asset inventory and prompts, and `series-image-director` only for a coherent multi-image set. Add a storyboard/contact-sheet preview when it materially helps review.
 
 Do not create full visual bibles for minor roles unless requested.
+
+For a complete voice-over script, SRT, tutorial, review, product explanation, or other evidence-led information video, use `reference-first-motion-director` before local image generation. Its `visual-master-plan.md` decides whether each unit should remain A-roll, real evidence, screen recording, motion packaging, or a generated shot. Do not replace available evidence with decorative motion graphics.
 
 For recurring scene and prop assets, record only useful consistency metadata: two to five recognizable anchors, production-used states, scale for props, and `variant_of` when an asset intentionally reuses a parent design. Do not force these fields onto one-off assets.
 
@@ -60,6 +66,8 @@ Ask for the target engine only if it is not already known:
 - Fafajing: `fafajing-prompt-writer` only when explicitly selected.
 
 Validate format and references without exposing the full internal validator stack when everything passes.
+
+For Seedance shots whose failure risk is mainly first-frame occupancy, spatial blocking, eyeline, landmark distance, prop handling, physical motion, or light direction, use the single-shot physical-control reference inside `seedance25-prompt-workflow`. Do not import obsolete engine syntax from another workflow.
 
 ### 6. 成片交付
 
@@ -82,6 +90,8 @@ It contains only:
 - one of six current steps;
 - material warnings.
 
+Optional revision records preserve upstream changes and identify only the downstream outputs that may be stale. A stale mark is a review state, not permission to delete or regenerate an output.
+
 Before a director, prompt adapter, or reviewer handles one scene, run `scripts/select_relevant_context.py` and supply only that scene's Canon events, dialogue, runtime state, assets, and shots. After state changes, compute `scripts/state_delta.py` in code; the delta is not an LLM workflow step.
 
 Run `scripts/validate_simple_project.py` after structural edits. It checks ordinary references and duration plus any optional source facts, beat claims, segment grouping, and asset consistency metadata that are present. A missing optional layer is not an error.
@@ -98,6 +108,11 @@ Foundation Hash, Narrative IR, Shot IR, Artifact Registry, State Diff, and multi
 4. When the user delegates a decision, choose a sensible default and record it as an assumption.
 5. Show only: current step, deliverable, material warnings, and next action.
 6. Load one primary specialist and at most two supporting specialists per step.
+7. Allow direct entry at any user-requested stage when the supplied material is sufficient; do not force unrelated upstream work.
+8. On an upstream revision, version the changed artifact, record the impact, and wait for the user's rebuild choice before changing downstream deliverables.
+
+Read [integrated-routing-map.md](references/integrated-routing-map.md) when deciding between narrative production, information-video editorial planning, performance enrichment, and single-shot engine control.
+Read [imported-ai-studio-film-suite-map.md](references/imported-ai-studio-film-suite-map.md) when maintaining or auditing the imported nine-Skill film-suite integration.
 
 ## Optional Full Engineering Reference
 

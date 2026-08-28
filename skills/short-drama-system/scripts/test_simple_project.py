@@ -46,8 +46,30 @@ def main():
         {"beat_id": "B02", "kind": "dialogue", "summary": "林决定提交证据", "dialogue_id": "D001"},
     ]
     advanced["shots"][0].update({"beat_refs": ["B01"], "segment_id": "SEG01", "cut_motivation": "scene_entry"})
-    advanced["shots"][1].update({"beat_refs": ["B02"], "segment_id": "SEG01", "cut_motivation": "information_change"})
+    advanced["shots"][1].update({
+        "beat_refs": ["B02"],
+        "segment_id": "SEG01",
+        "cut_motivation": "information_change",
+        "performance_direction": "逼对方承认事实；谎言构成阻碍；先回避再施压；停下手中动作后才说出原台词",
+    })
     advanced["assets"][1].update({"anchors": ["破损棕纸", "露出的照片角"], "states": ["密封", "破损"], "scale": "hand"})
+    advanced["revision_log"] = [
+        {
+            "revision_id": "REV01",
+            "changed_layer": "project-script",
+            "summary": "修正照片证据的出现位置",
+            "affected_ids": ["SC01", "S02"],
+            "status": "confirmed",
+        }
+    ]
+    advanced["stale_outputs"] = [
+        {
+            "output_id": "PJ01",
+            "source_revision_id": "REV01",
+            "reason": "提示词仍引用旧版证据位置",
+            "status": "possibly-stale",
+        }
+    ]
 
     broken_advanced = copy.deepcopy(advanced)
     broken_advanced["canon_lite"]["fact_basis"][0]["evidence"] = ""
@@ -55,6 +77,8 @@ def main():
     broken_advanced["shots"][1]["cut_motivation"] = "timer_target"
     broken_advanced["assets"][1]["anchors"] = ["唯一锚点"]
     broken_advanced["assets"][1]["variant_of"] = "AS404"
+    broken_advanced["shots"][1]["performance_direction"] = ""
+    broken_advanced["stale_outputs"][0]["source_revision_id"] = "REV404"
 
     checks = [
         run("simple-valid", 0, EXAMPLES / "simple-project-valid.json", "--duration", "6"),

@@ -130,6 +130,7 @@
           "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
           "subject": {"type": "string", "minLength": 1},
           "action": {"type": "string", "minLength": 1},
+          "performance_direction": {"type": "string", "minLength": 1},
           "start_state": {"type": "string"},
           "end_state": {"type": "string"},
           "dialogue_ids": {"type": "array", "items": {"type": "string"}},
@@ -169,6 +170,35 @@
           "engine": {"type": "string", "minLength": 1},
           "shot_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
           "status": {"type": "string", "enum": ["planned", "ready", "validated", "failed"]}
+        }
+      }
+    },
+    "revision_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["revision_id", "changed_layer", "summary", "affected_ids", "status"],
+        "properties": {
+          "revision_id": {"type": "string", "minLength": 1},
+          "changed_layer": {"type": "string", "enum": ["project-script", "review", "storyboard", "visual", "video"]},
+          "summary": {"type": "string", "minLength": 1},
+          "affected_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "status": {"type": "string", "enum": ["proposed", "applied", "confirmed"]}
+        }
+      }
+    },
+    "stale_outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["output_id", "source_revision_id", "reason", "status"],
+        "properties": {
+          "output_id": {"type": "string", "minLength": 1},
+          "source_revision_id": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "enum": ["possibly-stale", "rebuild-approved", "refreshed", "confirmed-valid"]}
         }
       }
     },

@@ -22,6 +22,8 @@ The user chooses only among: full workflow, one stage, or continue project. Inte
 - `Shot Table`: source scene, duration, visible subject/action, start/end state, dialogue IDs, and asset references. It may also claim compact scene beats and carry a generation segment ID.
 - `Runtime State`: current character, prop, and scene state stored as data rather than prompt prose.
 - `Project Progress`: current one of six steps.
+- `Revision Log` (optional): versioned upstream changes, their scope, and the downstream IDs they may affect.
+- `Stale Outputs` (optional): review-only markers for outputs that may no longer match the latest approved upstream version. A marker never authorizes deletion or regeneration.
 - `Basic Validation`: IDs, duration, dialogue references, asset references, adjacent shot state, and any optional beat/asset consistency fields that are present.
 
 For source adaptation, read [novel-adaptation-mode.md](novel-adaptation-mode.md). Optional source evidence, scene beats, shot claims, and recurring-asset anchors improve verification without activating a full IR. Their absence is not a validation failure.
@@ -38,6 +40,8 @@ After a shot or scene changes runtime state, run `scripts/state_delta.py`. The d
 - Ask one consolidated Decision Packet only when unknowns would change genre, core relationship, ending, duration, engine, or paid/external action.
 - Do not pause between internal drafting, audit, and formatting steps.
 - Show current step, delivered files, material warnings, and the next action; omit internal validator names when everything passes.
+- Allow direct entry at a later stage when equivalent user-approved inputs exist.
+- When an upstream change occurs, preserve the old version, record the impact, and ask for one rebuild decision only after the revised upstream artifact is ready.
 
 ## Escalation
 

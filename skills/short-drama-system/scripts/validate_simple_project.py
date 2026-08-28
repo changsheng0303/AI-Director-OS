@@ -149,6 +149,8 @@ def validate(data, target_duration=None):
         for asset_id in shot.get("asset_refs", []):
             if asset_id not in assets:
                 errors.append(f"shot {shot_id} references unknown asset {asset_id}")
+        if "performance_direction" in shot and not str(shot.get("performance_direction", "")).strip():
+            errors.append(f"shot {shot_id} has empty performance_direction")
         beat_refs = shot.get("beat_refs", [])
         if len(set(beat_refs)) != len(beat_refs):
             errors.append(f"shot {shot_id} has duplicate beat_refs")
@@ -222,6 +224,33 @@ def validate(data, target_duration=None):
                 errors.append(f"prompt job {job_id} references unknown shot {shot_id}")
     if step_index >= STEP_ORDER.index("video") and not prompt_jobs:
         errors.append("video or delivery step requires prompt_jobs")
+
+    revisions = unique(data.get("revision_log", []), "revision_id", "revision", errors)
+    revision_layers = {"project-script", "review", "storyboard", "visual", "video"}
+    revision_statuses = {"proposed", "applied", "confirmed"}
+    for revision_id, revision in revisions.items():
+        if revision.get("changed_layer") not in revision_layers:
+            errors.append(f"revision {revision_id} has invalid changed_layer {revision.get('changed_layer')}")
+        if not str(revision.get("summary", "")).strip():
+            errors.append(f"revision {revision_id} has empty summary")
+        affected_ids = revision.get("affected_ids", [])
+        if not isinstance(affected_ids, list) or any(not str(item).strip() for item in affected_ids):
+            errors.append(f"revision {revision_id} affected_ids must be non-empty strings")
+        elif len(set(affected_ids)) != len(affected_ids):
+            errors.append(f"revision {revision_id} has duplicate affected_ids")
+        if revision.get("status") not in revision_statuses:
+            errors.append(f"revision {revision_id} has invalid status {revision.get('status')}")
+
+    stale_outputs = unique(data.get("stale_outputs", []), "output_id", "stale_output", errors)
+    stale_statuses = {"possibly-stale", "rebuild-approved", "refreshed", "confirmed-valid"}
+    for output_id, stale in stale_outputs.items():
+        source_revision_id = stale.get("source_revision_id")
+        if source_revision_id not in revisions:
+            errors.append(f"stale output {output_id} references unknown revision {source_revision_id}")
+        if not str(stale.get("reason", "")).strip():
+            errors.append(f"stale output {output_id} has empty reason")
+        if stale.get("status") not in stale_statuses:
+            errors.append(f"stale output {output_id} has invalid status {stale.get('status')}")
 
     return errors, warnings
 

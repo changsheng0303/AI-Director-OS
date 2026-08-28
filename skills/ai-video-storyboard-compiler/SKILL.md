@@ -24,9 +24,10 @@ Compile dramatic text into the smallest useful set of shots an AI video pipeline
 6. Consume the approved visual asset list. Do not redesign a character, scene, or prop inside the Shot Table.
 7. Divide the scene into generation-sized segments based on action and transition logic, not an arbitrary fixed shot count. For short-form and AI-video work, target a **3–4 second average across the sequence**, but never cut merely because a timer reached that range.
 8. Cut only when at least one primary condition changes: emotion, information, subject, action phase, or eyeline/viewpoint. For each shot, emit the simplified Shot Table fields: shot ID, source scene, duration, primary `cut_motivation`, subject, visible action, start/end state, dialogue IDs, and asset references. The first shot of a scene may use `scene_entry`. Emit full Shot IR, provenance, and renderer blocks only in explicit full engineering mode.
-9. Maintain screen direction, eyelines, action matching, prop state, lighting, costume, geography, and emotional carry-over. Add a handoff card between independently generated segments.
-10. Run a final film-in-the-head pass and basic validation: IDs, total duration, exact dialogue references, asset references, and adjacent start/end states. Full Narrative/Shot IR gates are optional.
-11. If human review or actual generated media exposes a reproducible storyboard failure, return the affected shot/segment IDs, observed evidence, repair, and regression target to the orchestrator's failure registry. Do not generalize a single aesthetic preference into a global cutting rule.
+9. For performance-critical dialogue, confrontation, concealment, reaction, or close-up work, read [behavioral-performance-direction.md](references/behavioral-performance-direction.md). Add only the observable goal, obstacle, tactic, listening response, physical task, and visible beat changes needed by the shot. Do not add plot, rewrite dialogue, or overload ordinary establishing shots.
+10. Maintain screen direction, eyelines, action matching, prop state, lighting, costume, geography, and emotional carry-over. Add a handoff card between independently generated segments.
+11. Run a final film-in-the-head pass and basic validation: IDs, total duration, exact dialogue references, asset references, and adjacent start/end states. Full Narrative/Shot IR gates are optional.
+12. If human review or actual generated media exposes a reproducible storyboard failure, return the affected shot/segment IDs, observed evidence, repair, and regression target to the orchestrator's failure registry. Do not generalize a single aesthetic preference into a global cutting rule.
 
 ## Output Contract
 

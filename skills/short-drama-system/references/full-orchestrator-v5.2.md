@@ -23,7 +23,7 @@ description: AI短片创作系统总控。说"开始项目/按系统流程/做IP
 
 ## 自适应人工确认节点
 
-读取 [adaptive-human-gates.md](references/adaptive-human-gates.md) 执行。人工确认数量由风险决定，不设固定数字：
+读取 [adaptive-human-gates.md](adaptive-human-gates.md) 执行。人工确认数量由风险决定，不设固定数字：
 
 1. **最低 2 个**：已有成熟剧本时，仅确认剧本/生产方向与最终成片。
 2. **默认 3 个**：项目方向、剧本定稿、最终成片。
@@ -64,7 +64,7 @@ L6 LEARNING    S7 复盘 → 归因 → 知识 → S0
 
 ## 第一步：项目启动包
 
-当用户说“开始项目”“继续项目前期”“做 IP 短片”或只给出一个创意种子时，读取 [project-starter-package.md](references/project-starter-package.md)，在同一工作回合完成整个第一步。
+当用户说“开始项目”“继续项目前期”“做 IP 短片”或只给出一个创意种子时，读取 [project-starter-package.md](project-starter-package.md)，在同一工作回合完成整个第一步。
 
 - 默认只生成一个合并的 `PROJECT_STARTER_PACKAGE`，不得把 Foundation 草案、Foundation 审核、Story Contract 前置草案和分集架构预案拆成四次交付。
 - 内部依次调用 `ip-foundation-engine` 与 `screenplay-master`，但子 Skill 不得各自向用户设置确认闸门；所有阻塞项由总控在包末汇总成唯一 Decision Packet。
