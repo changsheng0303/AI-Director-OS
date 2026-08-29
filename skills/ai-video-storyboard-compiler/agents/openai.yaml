@@ -1,4 +1,6 @@
 interface:
-  display_name: "AI 视频分镜编译器"
-  short_description: "把剧本转译为连续、可生成、可校验的 AI 视频分镜"
-  default_prompt: "使用 $ai-video-storyboard-compiler 把这份剧本转换成可供 AI 视频模型执行的完整分镜。"
+  display_name: "分镜导演"
+  short_description: "把剧本直接变成可拍、可生成、连续清楚的镜头表"
+  default_prompt: "使用 $ai-video-storyboard-compiler 把这段剧本直接拆成简洁可用的生产分镜。"
+policy:
+  allow_implicit_invocation: true

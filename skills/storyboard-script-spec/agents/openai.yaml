@@ -1,0 +1,6 @@
+interface:
+  display_name: "分镜连续性审计"
+  short_description: "显式检查空间、轴线、动作衔接、废镜和时长问题"
+  default_prompt: "使用 $storyboard-script-spec 审计这份分镜的空间连续性和切镜理由。"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,9 @@
+[
+  {"id":"natural_storyboard","type":"trigger","prompt":"帮我把这场戏分镜，直接给能拍的镜头表。","expected_mode":"Quick Storyboard"},
+  {"id":"how_to_shoot","type":"trigger","prompt":"这段两个人在餐桌上摊牌的戏应该怎么拍？","expected_mode":"Quick Storyboard"},
+  {"id":"split_shots","type":"trigger","prompt":"剧本已经定稿，把第三场拆镜头并算清总时长。","expected_mode":"Production Storyboard"},
+  {"id":"seedance_storyboard","type":"trigger","prompt":"把这段剧本做成 Seedance 可用的文字分镜，先不要写最终提示词。","expected_mode":"AI Clip Grouping"},
+  {"id":"audit_storyboard","type":"trigger","prompt":"检查这份分镜有没有跳轴、人物瞬移、漏台词和没理由的废镜。","expected_mode":"Audit and Repair"},
+  {"id":"screenplay_non_trigger","type":"non_trigger","prompt":"根据这个创意写一版完整剧本，还没有定稿。","expected_mode":"Route to screenplay-master"},
+  {"id":"h3_non_trigger","type":"non_trigger","prompt":"分镜已经确认，直接编译最终 H3 Ref2VA 提示词。","expected_mode":"Route to H3 workflow"}
+]

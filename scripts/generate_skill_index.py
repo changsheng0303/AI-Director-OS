@@ -96,7 +96,7 @@ def build(repo_root: Path, stamp: str) -> str:
     out = [
         "# AI Director OS Skill 与许可证索引",
         "",
-        f"> 自动生成日期：{stamp}  ",
+        f"> 自动生成日期：{stamp}",
         f"> Skill 数量：{len(rows)}  ",
         "> 生成命令：`python scripts/generate_skill_index.py`",
         "",

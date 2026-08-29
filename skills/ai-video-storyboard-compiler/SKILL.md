@@ -1,39 +1,86 @@
 ---
 name: ai-video-storyboard-compiler
-description: "将已确认剧本或场景编译为连续性安全、可供 AI 视频生成的分镜片段，包含时长、机位、运动、表演、声音、参考图和镜头衔接。用于剧本转 AI 视频分镜；不写纯剧本或最终 H3/Ref2VA 提示词。"
+description: "把定稿剧本、场景或已有分镜转换成可拍、可生成的镜头表。用户说分镜、拆镜、镜头表、怎么拍、文字分镜、AI视频分镜、Seedance分镜、检查分镜或修复镜头连续性时使用；不负责扩写剧情或最终模型提示词。"
 ---
 
-# AI Video Storyboard Compiler
+# Storyboard Director
 
-Compile dramatic text into the smallest useful set of shots an AI video pipeline can execute without losing story, emotion, or continuity.
+这是系统唯一的生产分镜入口。用户不需要知道 Shot IR、Narrative IR、S 阶段或内部 Skill 名称。
 
-## Routing
+## 四种模式
 
-- For a conventional director's shot table without AI-generation fields, use the dedicated director/storyboard method instead.
-- For final model-specific H3 or Ref2VA syntax, hand the approved storyboard to the relevant prompt optimizer.
-- Use this skill when the missing layer is the structured bridge between screenplay and generation prompt.
-- This skill is the sole production authority for shot numbering, duration, and the simplified Shot Table; it also owns optional full Shot IR when explicitly requested. `director-mindset` may inform creative choices and `storyboard-script-spec` may audit continuity, but neither should emit a parallel production shot table.
+- **快速分镜**：单场、单段或一个具体镜头。直接给可用镜头表。
+- **生产分镜**：完整场次、短片或整集。输出连续镜号、时长闭合和必要的连续性说明。
+- **AI 片段分组**：在生产镜头之上，把相邻镜头组合成目标模型可生成的片段；镜头与生成片段不是同一概念。
+- **审查修复**：检查已有分镜的废镜、跳轴、瞬移、遗漏对白、动作无因、时长过载或片段边界错误，只重写问题范围。
 
-## Workflow
+## 输入策略
 
-1. Confirm the source scene, intended duration, aspect ratio, visual medium, available reference images, and whether dialogue, voice-over, subtitles, or music are allowed. Infer safe defaults when they do not materially change the result.
-2. Read [full-ai-video-storyboard-method.md](references/full-ai-video-storyboard-method.md) completely. Use its phase system, field definitions, continuity rules, and audiovisual translation library selectively; do not force its legacy self-check ritual or command syntax on the user.
-3. Treat the approved screenplay as `SCRIPT_CANON`. When `universal-dialogue-core` produced a separate `DIALOGUE_CANON`, consume its line IDs and exact text as read-only. Compute or record source hashes and never silently change plot, dialogue, named entities, or scene order.
-4. Default to a compact Story Map: premise, protagonist, objective, conflict, emotional change, and scene entry/exit summaries. Narrative IR is optional and must not be generated automatically unless the user explicitly requests full engineering mode.
-5. Build Runtime Map and Scene Geography before asset generation: lock entrances, exits, anchors, axis, screen direction, light, weather, and initial blocking. Emit asset requirements from this locked geography.
-6. Consume the approved visual asset list. Do not redesign a character, scene, or prop inside the Shot Table.
-7. Divide the scene into generation-sized segments based on action and transition logic, not an arbitrary fixed shot count. For short-form and AI-video work, target a **3–4 second average across the sequence**, but never cut merely because a timer reached that range.
-8. Cut only when at least one primary condition changes: emotion, information, subject, action phase, or eyeline/viewpoint. For each shot, emit the simplified Shot Table fields: shot ID, source scene, duration, primary `cut_motivation`, subject, visible action, start/end state, dialogue IDs, and asset references. The first shot of a scene may use `scene_entry`. Emit full Shot IR, provenance, and renderer blocks only in explicit full engineering mode.
-9. For performance-critical dialogue, confrontation, concealment, reaction, or close-up work, read [behavioral-performance-direction.md](references/behavioral-performance-direction.md). Add only the observable goal, obstacle, tactic, listening response, physical task, and visible beat changes needed by the shot. Do not add plot, rewrite dialogue, or overload ordinary establishing shots.
-10. Maintain screen direction, eyelines, action matching, prop state, lighting, costume, geography, and emotional carry-over. Add a handoff card between independently generated segments.
-11. Run a final film-in-the-head pass and basic validation: IDs, total duration, exact dialogue references, asset references, and adjacent start/end states. Full Narrative/Shot IR gates are optional.
-12. If human review or actual generated media exposes a reproducible storyboard failure, return the affected shot/segment IDs, observed evidence, repair, and regression target to the orchestrator's failure registry. Do not generalize a single aesthetic preference into a global cutting rule.
+接受定稿剧本、明确场景、小说中已被用户指定的片段或已有分镜。优先提取现有信息，不要求用户填表。
 
-## Output Contract
+只在缺失内容会改变结果时问一个合并问题：目标时长、横竖画幅、真人/动画媒介、必须保真的对白或结局。其他内容采用最小假设并标注。
 
-- Lead with a short scene and continuity map, followed by the storyboard table and cross-segment handoffs.
-- Preserve `DIALOGUE_CANON.exact_text` verbatim. Design pauses, interruptions, reactions and optional micro-actions around it; any wording change requires an approved Dialogue Change Request rather than an inline rewrite.
-- Treat the 3–4 second average as an advisory sequence metric. Allow shorter inserts and reactions, and longer dialogue, silence, continuous blocking, establishing, or emotional holds when the content has not yet completed. Reject timer-only cuts.
-- Mark missing references explicitly; never pretend an unattached image was inspected.
-- Keep model-specific suffixes separate from dramatic shot content.
-- In default mode, update `simple-project.json`. In explicit full engineering mode, add source hashes, Narrative IR, Shot IR, renderer adapter, and approved change IDs.
+若输入只是大纲：用户只要概念分镜时，可在不增加剧情结果的前提下输出暂定镜头；用户要生产分镜时，指出缺失的可见动作或场景结果，并交回 `screenplay-master`，不得自行补一整场新戏。
+
+## 节点流程
+
+按 [storyboard-node-graph.md](references/storyboard-node-graph.md) 运行最小节点子图：
+
+1. `source.lock`：锁定剧本事实、台词和允许修改范围。
+2. `beat.extract`：提取会改变信息、关系、行动或情绪的可见节拍。
+3. `space.map`：复杂空间才建立门、窗、家具、人物起点和轴线；简单镜头不画完整平面图。
+4. `audio.ledger`：登记对白、旁白和画外音，确保不遗漏、不重复。
+5. `shot.design`：只在观看重点需要改变时切镜。
+6. `clip.group`：仅在用户需要 AI 生成片段时，根据引擎时长和连续性组合镜头。
+7. `continuity.check`：检查起止状态、方向、视线、道具、光线和音频。
+8. `storyboard.deliver`：交付用户请求的层级，不展示内部节点日志。
+
+普通单场只运行必要节点。不要为了流程完整生成所有中间表。
+
+## 镜头设计规则
+
+正式设计前完整读取 [storyboard-core.md](references/storyboard-core.md)。表演关键场景再读 [behavioral-performance-direction.md](references/behavioral-performance-direction.md)。
+
+核心不变量：
+
+- 每镜只有一个主要观看任务。
+- 每次切镜必须由信息、反应、动作阶段、空间澄清、对比、揭示或节奏断点驱动。
+- 连续动作能在一个镜头中清楚完成时，优先调度和运镜，不机械拆镜。
+- 抽象情绪必须转成可见行为，但不擅自改变剧情结果。
+- 台词原文只读；分镜可以安排停顿、抢话、反应和动作，不能润色台词。
+- 重要动作必须写清起点、方向、接触、可见结果和末态。
+- 时长由对白、动作、反应和同步运镜的真实完成时间决定，不使用固定平均秒数切镜。
+- 参考图不能替代人物站位、视线和动作说明；未看到的参考图不得声称已检查。
+
+## 默认交付
+
+用户未指定格式时，只交付：一句场景目标与必要假设；复杂场景才显示简短空间说明；镜头表；用户需要 AI 生成时追加片段分组；仅列真正阻塞生产的风险。
+
+| 镜号 | 时长 | 画面与动作 | 摄影机 | 声音/原台词 | 末态/切镜理由 |
+|---|---:|---|---|---|---|
+
+可选字段只在需要时加入：参考资产、连续性锁、表演指导、画面文字、生成风险。不要默认输出焦段、光圈、情境 ID、六层自检、跨段十项卡或完整工程字段。
+
+## 镜头与生成片段
+
+- **Shot**：一次真实摄影机开始到结束；镜号和时长权威属于本 Skill。
+- **Clip Group**：一次 AI 视频生成请求，可包含一个连续镜头，也可包含目标引擎支持的多个内部镜头。
+
+分组依据是同一空间、人物关系、音频完整性、物理可执行性和模型限制。不要把每个 Shot 自动变成一次生成，也不要把多个不相容动作硬塞进固定时长。
+
+## 边界
+
+- 剧情、场次目的或人物动机有根本问题：交回 `screenplay-master`，只指出最小阻塞点。
+- 只改对白：交给 `universal-dialogue-core`。
+- 最终 H3、Seedance 或 Fafajing 格式：镜头批准后交给对应引擎 Skill。
+- `director-mindset` 与 `storyboard-script-spec` 仅作为显式导演/审计参考，不再并行输出第二套生产镜头表。
+
+## 验证
+
+结构化项目可用 `schemas/storyboard-graph.schema.json`，运行：
+
+```powershell
+python "scripts/validate_storyboard_graph.py" "<storyboard-graph.json>"
+```
+
+修复验证失败的最小节点；不要因为一个镜头失败而重做整场。

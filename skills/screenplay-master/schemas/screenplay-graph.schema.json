@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Screenplay Graph 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "status", "story_contract", "scenes"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["provisional", "approved", "locked"]},
+    "story_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protagonist", "want", "opposition", "stakes", "ending_promise"],
+      "properties": {
+        "protagonist": {"type": "string", "minLength": 1},
+        "want": {"type": "string", "minLength": 1},
+        "opposition": {"type": "string", "minLength": 1},
+        "stakes": {"type": "string", "minLength": 1},
+        "ending_promise": {"type": "string", "minLength": 1}
+      }
+    },
+    "locked_facts": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "characters": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["character_id", "name", "function"], "properties": {"character_id": {"type": "string", "minLength": 1}, "name": {"type": "string", "minLength": 1}, "function": {"type": "string", "minLength": 1}}}},
+    "scenes": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["scene_id", "heading", "goal", "resistance", "turn", "exit_state"], "properties": {
+        "scene_id": {"type": "string", "minLength": 1},
+        "heading": {"type": "string", "minLength": 1},
+        "goal": {"type": "string", "minLength": 1},
+        "resistance": {"type": "string", "minLength": 1},
+        "visible_action": {"type": "string"},
+        "turn": {"type": "string", "minLength": 1},
+        "exit_state": {"type": "string", "minLength": 1},
+        "dialogue_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "source_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }}
+    },
+    "dialogue": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dialogue_id", "speaker", "text"], "properties": {"dialogue_id": {"type": "string", "minLength": 1}, "speaker": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}}}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  }
+}

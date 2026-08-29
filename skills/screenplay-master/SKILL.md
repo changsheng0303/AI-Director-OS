@@ -1,87 +1,102 @@
 ---
 name: screenplay-master
-description: "创建、规划、修改或评估中英文影视剧本，包括短剧、微短剧、竖屏剧、剧情短视频、剧情广告、宣传片、分集大纲、节拍、钩子、反转、人物弧和剧本诊断。仅用于剧本化内容，不用于普通散文、非剧情广告文案、新闻、学术或纯市场/法律分析。"
+description: "创建、改写、续写、诊断或整理影视剧本。用户说写剧本、改剧本、小说改编、分场、场次、短剧、微短剧、番剧、剧情广告、台词场景、第一集、钩子、反转或剧本不好用时使用；不用于普通散文或纯营销文案。"
 ---
 
-# Screenplay Master
+# Screenplay Writer
 
-Use this skill to turn a premise, product, draft, IP outline, campaign goal, or series concept into a shootable screenplay or review report. Keep `SKILL.md` lean: read only the references needed for the current task.
+这是系统统一的剧本入口。用户描述要写什么即可，不要求记住 `/start`、`/plan`、内部阶段名或其他编剧 Skill。
 
-## Workflow
+## 六种模式
 
-1. Classify the task: quick concept, outline, full script, episode development, review/rewrite, genre strengthening, or compliance check.
-2. Use the simplified intake below before choosing an output mode. Read [complex-project-intake.md](references/complex-project-intake.md) only when the user explicitly asks for a formal production brief.
-3. Collect or infer: theme, audience, platform, duration, screen orientation, genre, cast size, production constraints, commercial goal, region, release channel, and risk limits.
-4. State concise assumptions and proceed for both simple and complex projects. Consolidate only direction-changing unknowns into one short Decision Packet.
-   When invoked by `short-drama-system` for user step 1, use Project Starter Module mode instead: consume the Foundation draft/audit, infer noncritical gaps as proposals, and return a Story Contract draft plus episode-count-independent architecture to the orchestrator without a separate confirmation gate.
-5. Read the routed references below. Do not load the full reference set by default.
-6. Define the logline, core hook, and ending payoff before expanding the middle.
-7. Build the tree structure: soil, root, opening, ending, trunk, branches, leaves, fruit.
-8. Define characters through desire, wound, flaw, secret, obstacle, relationship reversal, cost, and final choice.
-9. Draft a beat sheet with information, conflict escalation, emotional change, reversal, visual action, CTA, or cliffhanger.
-10. Generate the smallest useful output mode. Avoid oversized templates unless the user asks for a full deliverable.
-11. Self-review with the six-gate pipeline: structure, character, hook/rhythm, dialogue, format, and continuity. For dialogue-heavy scenes, character-voice risk, hidden-information scenes, or production handoff, route the dialogue pass through `universal-dialogue-core` and consume its `DIALOGUE_CANON`.
-12. For an IP project, consume any available Foundation-lite facts, cast, relationships, scope, and prohibited assumptions. After screenplay approval, create Canon-lite: version, locked events, exact dialogue IDs/text, locked characters, and prohibited changes. Full Foundation Hash, SCRIPT_CANON hash, and Narrative IR handoff are optional and only used in explicitly requested full engineering mode.
+- **构思**：一句话、人物或主题 → 故事方向、结局承诺或简短大纲。
+- **分场**：已确认故事 → 因果清楚的场次表，不提前塞满对白。
+- **写剧本**：大纲、分场或明确需求 → 可拍的完整场景/单集/短片剧本。
+- **改编**：小说、故事、章节或现有 IP → 保留来源关系的剧本化改编。
+- **改稿**：保留用户指定内容，只修改授权范围，并给出新版本。
+- **审稿**：先诊断问题；用户要求“直接改”时在同一轮给出修改稿，不把用户转给另一个 Skill。
 
-## Simplified Intake
+微短剧、18 分钟番剧、广告、艺术短片和长剧是参数与参考方法，不是必须由用户选择的不同入口。
 
-Classify before drafting:
+## 输入策略
 
-- **Simple request**: a logline, a short outline, one scene, a dialogue rewrite, or a task whose output form, duration, and core constraints are already explicit. State assumptions briefly and proceed.
-- **Production project**: longer, episodic, existing-IP, storyboard, animation, or AI-video work. Project length alone does not activate a heavier contract.
+先读用户已经给出的素材。只有缺失项会改变题材、核心关系、结局、时长或不可修改 Canon 时，才问一个合并问题；其余采用最小假设并明确写出。
 
-For a production project:
+用户说“你定”“直接写”“先给我一版”时立即产出暂定稿，不设置形式化审批门。用户只要一个场景，就不生成整套项目档案；用户要完整项目时再保存结构化状态。
 
-1. Extract facts already supplied in the conversation; do not ask for them again.
-2. Ask one consolidated Decision Packet only when missing fields would change the genre, central relationship, ending promise, duration, or downstream engine.
-3. If the user says “you decide”, choose compact defaults and record them as assumptions; do not require another preliminary approval.
-4. Proceed directly to the smallest useful screenplay output.
-5. After approval, record Canon-lite. Do not require a formal `PROJECT_BRIEF` or hashed `SCRIPT_CANON` unless full engineering mode was explicitly requested.
+## 节点流程
 
-**Orchestrated step-1 override:** when the parent is `short-drama-system` building `PROJECT_STARTER_PACKAGE`, do not run an independent confirmation message and do not wait for approval between project brief, Story Contract draft, and episode architecture. Return all preliminary material to the orchestrator as `ai_proposal`; the orchestrator owns the single user confirmation point. This override does not permit a formal screenplay or `SCRIPT_CANON` before approval.
+按 [screenplay-node-graph.md](references/screenplay-node-graph.md) 选择最小子图：
 
-The confirmation should cover only what can materially change the work: deliverable, duration/format, audience/tone, non-negotiable canon, and downstream production use. Never turn this gate into a generic questionnaire.
+1. `source.ingest`：读取创意、原著或旧稿，标记来源与不可修改项。
+2. `story.contract`：定义故事问题、主角目标、阻力、代价和结局承诺。
+3. `cast.function`：只建立当前故事需要的角色功能、关系和声音。
+4. `scene.outline`：按因果和价值变化组织场次。
+5. `dialogue.pass`：需要对白时调用 `universal-dialogue-core` 的相应深度。
+6. `screenplay.assemble`：把动作、表演、对白和声音整理为可拍剧本。
+7. `screenplay.review`：只修证据明确的问题。
+8. `canon.freeze`：用户确认后才锁定版本并交给分镜。
 
-## Reference Routing
+一个节点失败只重跑它和受影响下游，不整份推倒重来。
 
-- Task and output-mode selection: read [routing-and-output-modes.md](references/routing-and-output-modes.md).
-- Film concept development that must distinguish classical long-form, festival/art-film, streaming hook-driven, or user-defined modes: read [film-concept-routing.md](references/film-concept-routing.md). Use the user's stated mode when known; do not force a menu ceremony.
-- Scene-by-scene treatment without dialogue, or deep assembly of approved synopsis/character/world/treatment materials into a director-ready screenplay: read [scene-treatment-and-fusion.md](references/scene-treatment-and-fusion.md). Preserve source events and separate formatting from authorized dialogue expansion.
-- 1-3 minute promo, dramatic ad, brand short: read [format-1-3min-promo.md](references/format-1-3min-promo.md), [commercial-script-rules.md](references/commercial-script-rules.md), [platform-playbooks.md](references/platform-playbooks.md), and [compliance-and-platform-risk.md](references/compliance-and-platform-risk.md).
-- 4-6 minute complete short film: read [format-4-6min-short-film.md](references/format-4-6min-short-film.md), [character-arc-system.md](references/character-arc-system.md), [dialogue-and-scene-style.md](references/dialogue-and-scene-style.md), and [review-checklists.md](references/review-checklists.md).
-- Vertical micro-drama series: read [format-micro-series.md](references/format-micro-series.md), [tree-structure-method.md](references/tree-structure-method.md), [hook-library.md](references/hook-library.md), [continuity-system.md](references/continuity-system.md), and [compliance-and-platform-risk.md](references/compliance-and-platform-risk.md).
-- Long-series development: read [format-long-series.md](references/format-long-series.md), [tree-structure-method.md](references/tree-structure-method.md), [character-arc-system.md](references/character-arc-system.md), and [continuity-system.md](references/continuity-system.md).
-- Existing script review or rewrite: read [review-checklists.md](references/review-checklists.md), [hook-library.md](references/hook-library.md), [dialogue-and-scene-style.md](references/dialogue-and-scene-style.md), and [compliance-and-platform-risk.md](references/compliance-and-platform-risk.md).
-- Guided project development from premise through two outline directions and a reusable project dossier: read [project-development-v2.md](references/project-development-v2.md). Use its seven-stage decisions selectively; skip the legacy opening self-test and confirmation ceremony.
-- Complex production intake, one-turn confirmation, `PROJECT_BRIEF`, and fast-start exceptions: read [complex-project-intake.md](references/complex-project-intake.md).
-- Expand an approved outline into a full screenplay: read [screenplay-writing-v1.md](references/screenplay-writing-v1.md), especially its format, rhythm-mode matrix, episodic switch, batching, and continuity rules. Treat slash commands as user-intent aliases, not required product commands.
-- Roundtable-style script diagnosis: read [roundtable-script-doctor.md](references/roundtable-script-doctor.md) only when the user requests multi-perspective consultation, competing stakeholder views, or a diagnostic panel. Generic multi-perspective deep review defaults to **Lite Roundtable** with the three most relevant viewpoints; use the full 4–6 viewpoint roundtable only when the user explicitly asks for a full panel, broad stakeholder coverage, or names more reviewers. Keep viewpoints evidence-based and do not invent real credentials.
-- Dialogue-only generation, diagnosis, or rewrite: route to `universal-dialogue-core` as the dialogue authority. Preserve plot and scene result unless the user expands the task. Use [dialogue-doctor-seven-dimensions.md](references/dialogue-doctor-seven-dimensions.md) only as an optional diagnostic lens, not as a second competing rewrite authority.
-- Anti-cliche ignition, first-person POV direction, visualized action writing, ending alternatives, structure reshaping, seed/payoff tracking, or a single hard editorial question: read [shanyin-writing-kernel.md](references/shanyin-writing-kernel.md) and select only the relevant module. Treat its named personas and rigid JSON/HTML formats as optional lenses, not mandatory role-play.
-- Genre strengthening: read [genre-playbooks.md](references/genre-playbooks.md), then add character, hook, or review references only as needed.
-- Full implementation blueprint: read [screenplay-master-full-blueprint.md](references/screenplay-master-full-blueprint.md) only when maintaining or extending this skill.
+## 写作核心
 
-## Output Modes
+执行前读取 [screenplay-core.md](references/screenplay-core.md)。按任务需要再选择已有专业参考，不全量加载。
 
-- Quick Concept: assumptions, project type, audience/platform, logline, hook, ending payoff, 3 title directions, 3 risks.
-- Outline: assumptions, tree structure, character table, main line, subplots, beat sheet, scene/episode outline, self-check.
-- Full Script: assumptions, production specs, beat sheet, timecoded script, visual/action cues, sound/subtitle cues, CTA or cliffhanger, self-check.
-- Review and Rewrite: diagnosis, severity-ranked issues, rewrite strategy, revised version, change rationale, unresolved risks.
-- Compliance Check: region/platform assumptions, obvious risks, rewrite points, disclosure advice, AI/copyright notes, non-legal-advice disclaimer.
-- Production Handoff: approved screenplay plus Canon-lite and compact Story Map. Include Foundation/script hashes, Narrative IR, Shot IR, and formal change IDs only when the user explicitly selected full engineering mode.
-- Project Starter Module: logline, hook, ending promise, Story Contract draft, four-phase story spine, and episode-count-independent architecture; returned to the orchestrator inside user step 1 and marked provisional.
+不变量：
 
-## Templates
+- 先确定结局承诺和主角选择，再扩写中段。
+- 每场有目标、阻力、策略/行动、转折和退出状态；建置场至少提供新信息或关系变化。
+- 相邻场次必须能回答“为什么这一场现在发生”。
+- 角色行为来自欲望、恐惧、信念、关系或已知信息，不为反转突然降智。
+- 世界规则通过行为、物件、代价和后果出现，不靠说明性对白。
+- 对白执行试探、拒绝、隐瞒、逼问、说服、安慰、挑衅、谈判或终止等行为；画面已表达的信息不再解释。
+- 写可见动作，不把摄影机景别写进文学剧本。分镜由下游负责。
+- 不靠新增无关事件、重复对白或固定字数注水。
 
-Use short assets when the user asks for a structured deliverable:
+## 路由专业方法
 
-- [script-template.md](assets/script-template.md)
-- [episode-outline-template.md](assets/episode-outline-template.md)
-- [character-card-template.md](assets/character-card-template.md)
-- [series-bible-template.md](assets/series-bible-template.md)
-- [beat-sheet-template.md](assets/beat-sheet-template.md)
-- [review-report-template.md](assets/review-report-template.md)
+- 电影概念模式：读 [film-concept-routing.md](references/film-concept-routing.md)。
+- 分场或已批准资料装配：读 [scene-treatment-and-fusion.md](references/scene-treatment-and-fusion.md)。
+- 小说/章节改编：读 [screenplay-writing-v1.md](references/screenplay-writing-v1.md) 中的来源保真、场景化和批处理部分；不继承其旧命令仪式。
+- 50–100 集微短剧：使用 `micro-drama-creation` 的题材、钩子、付费与节奏参考，但本 Skill 仍是用户入口。
+- 明确 18 分钟番剧：使用 `anime-series-scripting` 的长格式参考，不强制 12 场平均 90 秒。
+- 对白高风险：交给 `universal-dialogue-core`，返回 `DIALOGUE_CANON`。
+- 用户明确要红果/平台内容负责人视角：使用 `screenwriter-review` 作为审稿镜头，不把其市场偏好设为所有剧本的通用规则。
+- 用户明确要求“原文只加不改”：才使用 `drama-script-iteration` 的严格增量模式。
 
-## Validation
+## 按需参考目录
 
-For skill maintenance, validate against [evals/evals.json](evals/evals.json), score with [evals/scoring-rubric.md](evals/scoring-rubric.md), run `scripts/check_skill_package.py`, and use `scripts/check_screenplay_text.py` on representative outputs. Release only when the total score is at least 90, trigger accuracy, compliance/risk, and dramatic effectiveness each pass the gate, and the non-trigger tests do not misfire.
+以下旧方法保留为可选节点资料，不在普通请求中全量加载：
+
+- 任务边界与输出选择：[routing-and-output-modes.md](references/routing-and-output-modes.md)
+- 1–3 分钟剧情宣传：[format-1-3min-promo.md](references/format-1-3min-promo.md)、[commercial-script-rules.md](references/commercial-script-rules.md)
+- 4–6 分钟短片：[format-4-6min-short-film.md](references/format-4-6min-short-film.md)
+- 微短剧与长系列：[format-micro-series.md](references/format-micro-series.md)、[format-long-series.md](references/format-long-series.md)
+- 角色、结构与连续性：[character-arc-system.md](references/character-arc-system.md)、[tree-structure-method.md](references/tree-structure-method.md)、[continuity-system.md](references/continuity-system.md)
+- 台词、钩子和题材：[dialogue-and-scene-style.md](references/dialogue-and-scene-style.md)、[hook-library.md](references/hook-library.md)、[genre-playbooks.md](references/genre-playbooks.md)
+- 平台与风险：[platform-playbooks.md](references/platform-playbooks.md)、[compliance-and-platform-risk.md](references/compliance-and-platform-risk.md)
+- 深度项目与审核：[complex-project-intake.md](references/complex-project-intake.md)、[review-checklists.md](references/review-checklists.md)
+- 维护蓝图：[screenplay-master-full-blueprint.md](references/screenplay-master-full-blueprint.md)
+
+## 默认交付
+
+用户未指定时，交付当前最有用的一层：
+
+- 构思：一句话故事、核心冲突、结局承诺、关键风险。
+- 分场：场号、地点/时间、目标、可见行动、转折、退出状态。
+- 剧本：场景头、可见动作、角色名、必要表演提示、对白、关键声音。
+- 改稿：修改后完整文本 + 简短改动说明。
+- 审稿：P0/P1/P2 问题 + 可执行修改；用户要求时附修改稿。
+
+不要默认输出长篇自检、评分仪式、三套方向、全量人物百科或内部节点日志。
+
+## 生产交接
+
+用户确认后生成稳定版本：锁定场次顺序、事件结果、角色、精确对白和禁止修改项。下游 `ai-video-storyboard-compiler` 只读这些内容。未确认稿标记为 `provisional`，不得伪装成 Canon。
+
+结构化项目可使用 `schemas/screenplay-graph.schema.json` 并运行：
+
+```powershell
+python "scripts/validate_screenplay_graph.py" "<screenplay-graph.json>"
+```

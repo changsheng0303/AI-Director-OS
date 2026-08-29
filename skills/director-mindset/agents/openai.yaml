@@ -1,0 +1,6 @@
+interface:
+  display_name: "导演镜头语言参考"
+  short_description: "显式比较导演方案和强化构图调度，不生成平行生产镜头表"
+  default_prompt: "使用 $director-mindset 为这个关键场景比较两种真正不同的导演拍法。"
+policy:
+  allow_implicit_invocation: false

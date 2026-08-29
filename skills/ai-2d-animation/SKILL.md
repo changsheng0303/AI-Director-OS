@@ -1,6 +1,6 @@
 ---
 name: ai-2d-animation
-description: "将创意、剧本、分镜或素材包转为可执行的 AI 2D 动画方案。默认使用 Canon-lite、Story Map、Shot 表、资产与基础校验；完整 Narrative/Shot IR 仅在用户明确要求严格工程模式时启用。"
+description: "仅用于用户明确要求完整 AI 2D 动画生产方案、动漫整集或从资产到提示词的端到端编排。只写剧本时用 screenplay-master，只做分镜时用 ai-video-storyboard-compiler。"
 ---
 
 # AI 2D Animation Skill V1.7
@@ -10,6 +10,8 @@ description: "将创意、剧本、分镜或素材包转为可执行的 AI 2D �
 
 核心理念：
 > 先把故事变成连续、可因果解释的视觉事件链，再把视觉事件链变成连续镜头，最后才编译成模型 Prompt。
+
+**入口边界：** 本 Skill 不再接管普通“写剧本”“改剧本”“帮我分镜”“拆镜头”请求。它只在用户明确要求 2D 动画全流程、整集生产编排或动漫资产—分镜—提示词联动时加载；剧本与镜头分别消费统一权威的输出，不另建平行版本。
 
 **生产原则：**
 1. 故事因果先于镜头炫技。

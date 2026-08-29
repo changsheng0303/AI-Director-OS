@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Storyboard Graph 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "source", "shots"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scene_id", "status"],
+      "properties": {
+        "scene_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["provisional", "approved", "locked"]},
+        "duration_target": {"type": "number", "exclusiveMinimum": 0},
+        "medium": {"type": "string"}
+      }
+    },
+    "beats": {
+      "type": "array",
+      "items": {"type": "object", "additionalProperties": false, "required": ["beat_id", "summary"], "properties": {"beat_id": {"type": "string", "minLength": 1}, "summary": {"type": "string", "minLength": 1}, "dialogue_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}}}
+    },
+    "shots": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["shot_id", "duration_seconds", "visual_action", "camera", "end_state", "cut_motivation"], "properties": {
+        "shot_id": {"type": "string", "minLength": 1},
+        "beat_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "visual_action": {"type": "string", "minLength": 1},
+        "camera": {"type": "string", "minLength": 1},
+        "audio_dialogue": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "start_state": {"type": "string"},
+        "end_state": {"type": "string", "minLength": 1},
+        "cut_motivation": {"enum": ["scene_entry", "information", "reaction", "action_phase", "spatial_clarification", "contrast", "reveal", "rhythm_break"]},
+        "asset_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "performance_direction": {"type": "string"}
+      }}
+    },
+    "clip_groups": {
+      "type": "array",
+      "items": {"type": "object", "additionalProperties": false, "required": ["clip_id", "shot_ids", "duration_seconds"], "properties": {"clip_id": {"type": "string", "minLength": 1}, "shot_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true}, "duration_seconds": {"type": "number", "exclusiveMinimum": 0}, "engine": {"type": "string"}, "transition_anchor": {"type": "string"}}}
+    },
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  }
+}

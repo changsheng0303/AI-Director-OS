@@ -46,5 +46,29 @@
     "type": "trigger",
     "prompt": "Use $screenplay-master to review a China-facing AI-generated micro-drama concept for compliance, copyright, AI labeling, and platform risk.",
     "expected_mode": "Compliance Check"
+  },
+  {
+    "id": "natural_language_scene",
+    "type": "trigger",
+    "prompt": "把这个想法直接写成一场能拍的戏：女儿回家后发现母亲已经卖掉结婚戒指替她还债。",
+    "expected_mode": "Write Screenplay"
+  },
+  {
+    "id": "natural_language_rewrite",
+    "type": "trigger",
+    "prompt": "这个剧本太拖、人物也没劲，直接帮我改成一版好用的，不要只给建议。",
+    "expected_mode": "Review and Rewrite"
+  },
+  {
+    "id": "novel_adaptation",
+    "type": "trigger",
+    "prompt": "把我上传小说的第二章改成竖屏短剧第一集，保留人物关系和核心事件。",
+    "expected_mode": "Adaptation"
+  },
+  {
+    "id": "storyboard_only_non_trigger",
+    "type": "non_trigger",
+    "prompt": "剧本已经定稿，只需要帮我拆成镜头表，不要改剧本。",
+    "expected_mode": "Route to ai-video-storyboard-compiler"
   }
 ]

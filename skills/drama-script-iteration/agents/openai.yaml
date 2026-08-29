@@ -1,0 +1,6 @@
+interface:
+  display_name: "严格增量改稿"
+  short_description: "只加不改的旧稿增量模式，必须由用户明确指定"
+  default_prompt: "使用 $drama-script-iteration 在不改动原文的前提下只补过渡和新增段落。"
+policy:
+  allow_implicit_invocation: false

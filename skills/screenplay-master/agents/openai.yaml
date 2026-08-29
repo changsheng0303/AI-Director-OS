@@ -1,6 +1,6 @@
 interface:
-  display_name: "Screenplay Master"
-  short_description: "Plan and review screenplay video scripts."
-  default_prompt: "Use $screenplay-master to create, revise, or evaluate a short drama, screenplay, episode outline, or scripted video project."
+  display_name: "剧本编剧"
+  short_description: "从创意、原著或旧稿直接产出、改写和审查可拍剧本"
+  default_prompt: "使用 $screenplay-master 把我的想法或旧稿直接整理成一版可拍的剧本。"
 policy:
   allow_implicit_invocation: true

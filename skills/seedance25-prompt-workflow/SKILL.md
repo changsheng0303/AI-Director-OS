@@ -1,6 +1,6 @@
 ---
 name: seedance25-prompt-workflow
-description: "按即梦 Seedance 2.5 规范逐项收集参数并生成提示词，支持基础/真人、30 秒与超长视频、延长、智能或高级编辑、白模和多宫格分镜。"
+description: "在镜头或生成片段已经明确后，按即梦 Seedance 2.5 规范生成、延长或编辑视频提示词，也支持白模和多宫格输入。只做生产分镜时使用 ai-video-storyboard-compiler。"
 ---
 
 # Seedance 2.5 提示词全流程生成器

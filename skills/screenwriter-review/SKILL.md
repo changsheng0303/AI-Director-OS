@@ -1,6 +1,6 @@
 ---
 name: screenwriter-review
-description: "内容负责人的短剧/漫剧编剧审稿与改稿skill。用于剧本选题判断、第一集质量审核、改稿方向建议。基于内容负责人在头部平台5年+Yuanzhen Pictures实战中积累的内容方法论。"
+description: "显式调用的红果/内容负责人短剧审稿视角，用于选题评级、第一集生死线和平台爽感审查。普通剧本诊断或直接改稿统一使用 screenplay-master。"
 ---
 
 # 红果审剧本 Skill

@@ -1,6 +1,6 @@
 ---
 name: short-drama-system
-description: "以简洁导演流程编排短剧、小说改编、动画和 AI 短片：项目与剧本、审稿、导演分镜、视觉资产、视频提示词、成片交付。默认使用 Canon-lite、Story Map、Shot 表和基础校验；不向用户暴露复杂状态机。"
+description: "当用户明确要求完整项目流程、从剧本一路做到分镜/资产/视频提示词、继续现有项目或跨阶段回退时使用。只写或改剧本用 screenplay-master，只做分镜用 ai-video-storyboard-compiler。"
 ---
 
 # Short Drama Director System · Simple Default
@@ -113,6 +113,7 @@ Foundation Hash, Narrative IR, Shot IR, Artifact Registry, State Diff, and multi
 
 Read [integrated-routing-map.md](references/integrated-routing-map.md) when deciding between narrative production, information-video editorial planning, performance enrichment, and single-shot engine control.
 Read [imported-ai-studio-film-suite-map.md](references/imported-ai-studio-film-suite-map.md) when maintaining or auditing the imported nine-Skill film-suite integration.
+Read [screenplay-storyboard-node-bridge.md](references/screenplay-storyboard-node-bridge.md) when a confirmed screenplay flows into production storyboards or an upstream revision invalidates only part of the shot graph.
 
 ## Optional Full Engineering Reference
 
