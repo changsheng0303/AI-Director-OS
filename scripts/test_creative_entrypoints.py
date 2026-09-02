@@ -26,6 +26,9 @@ def main():
         if "allow_implicit_invocation: false" not in metadata: failures.append(f"{name} must be explicit-only")
     require(read("skills/ai-2d-animation/SKILL.md"),["只写剧本时用 screenplay-master","只做分镜时用 ai-video-storyboard-compiler"],"2D routing",failures)
     require(read("skills/seedance25-prompt-workflow/SKILL.md"),["只做生产分镜时使用 ai-video-storyboard-compiler"],"Seedance routing",failures)
+    require(read("skills/universal-dialogue-core/SKILL.md"),["logical-stress-contract.md","逻辑重音属于 `DIALOGUE_CANON`"],"logical stress authority",failures)
+    require(read("skills/screenplay-master/schemas/screenplay-graph.schema.json"),["logical_stress","corrective_focus","delivery"],"screenplay logical stress schema",failures)
+    require(read("skills/ai-video-prompt-production/references/video-prompt-ir.md"),["logical_stress","delivery_plan","不重新推断"],"video prompt logical stress handoff",failures)
     if failures:
         print("FAIL")
         for item in failures: print("ERROR:",item)

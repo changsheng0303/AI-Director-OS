@@ -63,6 +63,19 @@ dialogue_canon:
       language: zh-CN
       timing_estimate_sec:
       interrupt_target: null
+      logical_stress:
+        - span:
+          role: corrective_focus | contrast | rejected_alternative | negation | exclusivity | identity | quantity | time | location | reveal | commitment | threat | concealment_leak
+          strength: light | moderate | strong
+          contrast_with: null
+          reason:
+      delivery:
+        pause_before_ms: 0
+        pause_after_ms: 0
+        rate:
+        pitch:
+        volume:
+        visual_cue:
       delivery_cue:
       optional_micro_action:
   scene_change:
@@ -77,7 +90,7 @@ dialogue_canon:
   unresolved_warnings: []
 ```
 
-`exact_text`是唯一台词真源。表演提示和微动作不得被误认为固定台词。
+`exact_text`是唯一台词文本真源；`logical_stress`是句意焦点真源。`delivery`、表演提示和微动作是可替换的实现层，不得被误认为固定台词，也不得反向改变重音词或对比关系。
 
 ## Change control
 
@@ -97,11 +110,11 @@ approval_status: proposed | approved | rejected
 
 ## Downstream rules
 
-- Storyboard：保留exact_text；只设计停顿、打断、反应和可选微动作。
+- Storyboard：保留exact_text与logical_stress；只安排停顿、打断、反应和可选微动作，不重新判断重音。
 - Audio Timeline：使用line_id、speaker、exact_text和时长估算。
 - Subtitle：可分行，不改字；翻译另存translation track。
-- H3：将exact_text原样放入官方允许的 `<d>[Language] ...</d>`；不得润色。
-- Voice/TTS：声线和表演参数来自Voiceprint，不能反向改变人物事实。
+- H3：将exact_text原样放入官方允许的 `<d>[Language] ...</d>`；把重音转换为该引擎支持的自然语言表演说明，不得塞入不受支持的SSML。
+- Voice/TTS：声线和表演参数来自Voiceprint；目标支持SSML时可把logical_stress编译为emphasis、break与prosody，但不能反向改变人物事实或exact_text。
 
 ## Invalidation
 

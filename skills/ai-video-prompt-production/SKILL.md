@@ -37,6 +37,8 @@ After an engine validator, human review, or actual generation exposes a reproduc
 
 用户明确指定引擎时直接路由；未指定且最终格式会明显不同，先说明判断并询问。Video Prompt IR 是中立交接，不继承任何 Adapter 的正文语言、字段、长度或固定模板。
 
+当 `DIALOGUE_CANON` 含 `logical_stress` 时，IR 必须原样保存重音 span、语义角色和强度，并把可选 delivery 作为独立实现层。Adapter 可转换为目标引擎支持的自然语言表演提示或 SSML/TTS 控制，但不得改原台词、重选重音词，或把“不支持 SSML”静默解释成“没有重音”。
+
 ## H3 格式权威（仅目标引擎为 H3 时加载）
 
 用户安装的第三方 skill 是格式/法典权威，先加载再动手：

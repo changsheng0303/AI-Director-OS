@@ -181,6 +181,12 @@ beat:
 
 Voice不是口头禅列表。至少由信息选择、策略、句式、词汇、节奏、回避方式、情绪暴露方式、关系差异和压力变形共同构成。需要完整结构时读取 [voiceprint-schema.yaml](voiceprint-schema.yaml)。
 
+## 逻辑重音
+
+当一句台词存在否定纠正、明确对比、范围限定、身份/数量/时间强调、揭示、承诺、威胁或重音位置会改变句意时，读取 [logical-stress-contract.md](references/logical-stress-contract.md)。
+
+逻辑重音属于 `DIALOGUE_CANON` 的语义层：先记录强调哪一段、为什么强调、与什么形成对比，再单独给出可选的停顿、语速、音高、音量或可见动作。普通功能性台词不标；不得把每句都写成“加重语气”。
+
 ## Gate与定向修复
 
 以下任一出现即FAIL：
@@ -222,6 +228,7 @@ python "scripts/verify_dialogue_handoff.py" "dialogue_canon.json" "audio_timelin
 
 - 完整上游v2.1原文：[references/source-v2.1-full.md](references/source-v2.1-full.md)
 - 通用工艺：[core-craft-rules.md](core-craft-rules.md)
+- 逻辑重音与下游编译：[references/logical-stress-contract.md](references/logical-stress-contract.md)
 - 评分规则：[dialogue-rubric.md](dialogue-rubric.md)
 - 包验证记录：[VALIDATION.md](VALIDATION.md)
 - 回归案例：`tests/`

@@ -9,7 +9,7 @@ description: "用户明确指定 fafajing 时，将创意或 Video Prompt IR 编
 
 Compile a user's rough idea, supplied assets, or a system Video Prompt IR into the Fafajing prompt format. This skill is the **Fafajing Adapter**: it owns Fafajing's Chinese body, exact templates, and Basic/Full-reference formatting, but does not define H3 or Seedance output. It covers **basic mode** (T2VA / I2VA / FL2VA / L2VA) and **full-reference mode** (multi-asset reference generation, video editing, video continuation, audio reuse/reference).
 
-When invoked from `ai-video-prompt-production`, read `ai-video-prompt-production/references/video-prompt-ir.md` and preserve its mode, asset roles, frame anchors, dialogue, and sound relationships. For a direct Fafajing request without IR, perform the same determination locally using Step 1. Never export Fafajing's Chinese-language or length requirements as cross-engine rules.
+When invoked from `ai-video-prompt-production`, read `ai-video-prompt-production/references/video-prompt-ir.md` and preserve its mode, asset roles, frame anchors, dialogue, logical stress, delivery plan, and sound relationships. Keep `<d>` text verbatim; compile logical stress into nearby Chinese performance/sound wording, not SSML, unless a separate TTS target explicitly supports it. For a direct Fafajing request without IR, perform the same determination locally using Step 1. Never export Fafajing's Chinese-language or length requirements as cross-engine rules.
 
 Two bundled guides are the single source of truth for all format rules:
 

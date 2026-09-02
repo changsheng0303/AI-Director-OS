@@ -79,6 +79,19 @@ dialogue:
   - speaker_id:
     language:
     verbatim_text:
+    logical_stress:
+      - span:
+        role:
+        strength: light | moderate | strong
+        contrast_with:
+        reason:
+    delivery_plan:
+      pause_before_ms:
+      pause_after_ms:
+      rate:
+      pitch:
+      volume:
+      visual_cue:
     timing:
     crosses_cut: false
     cutoff_at_end: false
@@ -94,6 +107,8 @@ constraints: []
 
 只填写当前任务需要的字段。快速单镜概念稿可在内部使用简化 IR；生产级项目应保存 IR、来源引用和版本。
 
+`verbatim_text + logical_stress` 是台词语义真源；`delivery_plan` 是可替换的表现建议。视频模型 Adapter 默认使用自然语言描述重音、停顿和可见动作；只有专门的 TTS/语音 Adapter 且目标明确支持时才输出 SSML。Storyboard 只引用这些字段，不重新推断。
+
 ## 5. 共享不变量
 
 1. 用户给出的对白、歌词和可见文字逐字保留，不翻译、不润色；不清楚的内容标记为不清楚，不猜测。
@@ -102,6 +117,7 @@ constraints: []
 4. 视频编辑、视频续写、音频复制和音频风格参考必须区分，不能因素材存在而自动推断关系。
 5. 所有切点必须递增并位于总时长内；首镜是否显示 0 秒时间戳由最终 Adapter 决定。
 6. Adapter 不得静默改变 IR 的剧情、对白、素材角色或关键帧关系。若引擎能力不足，报告受影响字段并请求降级决定。
+7. Adapter 不得删除或重选 `logical_stress`。目标视频模型不支持 SSML 时改用自然语言声音说明；目标没有可控音频时仍保留该字段供配音/后期使用。
 
 ## 6. Adapter 边界
 
@@ -113,4 +129,3 @@ constraints: []
 ## 7. 路由检查
 
 交给 Adapter 前确认：主模式唯一、目标引擎明确、素材角色无歧义、引用素材真实存在、首尾状态可连接、对白逐字、声音层分离。输出后只运行目标引擎对应的 Validator。
-

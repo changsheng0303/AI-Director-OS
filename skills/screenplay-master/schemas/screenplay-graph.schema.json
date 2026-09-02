@@ -35,7 +35,26 @@
         "source_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
       }}
     },
-    "dialogue": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dialogue_id", "speaker", "text"], "properties": {"dialogue_id": {"type": "string", "minLength": 1}, "speaker": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}}}},
+    "dialogue": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dialogue_id", "speaker", "text"], "properties": {
+      "dialogue_id": {"type": "string", "minLength": 1},
+      "speaker": {"type": "string", "minLength": 1},
+      "text": {"type": "string", "minLength": 1},
+      "logical_stress": {"type": "array", "maxItems": 3, "items": {"type": "object", "additionalProperties": false, "required": ["span", "role", "strength"], "properties": {
+        "span": {"type": "string", "minLength": 1},
+        "role": {"enum": ["corrective_focus", "contrast", "rejected_alternative", "negation", "exclusivity", "identity", "quantity", "time", "location", "reveal", "commitment", "threat", "concealment_leak"]},
+        "strength": {"enum": ["light", "moderate", "strong"]},
+        "contrast_with": {"type": ["string", "null"]},
+        "reason": {"type": "string"}
+      }}},
+      "delivery": {"type": "object", "additionalProperties": false, "properties": {
+        "pause_before_ms": {"type": "integer", "minimum": 0},
+        "pause_after_ms": {"type": "integer", "minimum": 0},
+        "rate": {"type": "string"},
+        "pitch": {"type": "string"},
+        "volume": {"type": "string"},
+        "visual_cue": {"type": "string"}
+      }}
+    }}},
     "warnings": {"type": "array", "items": {"type": "string"}}
   }
 }

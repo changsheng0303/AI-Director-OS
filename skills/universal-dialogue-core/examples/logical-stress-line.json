@@ -1,0 +1,10 @@
+{
+  "line_id": "D001",
+  "speaker": "林川",
+  "exact_text": "我不是不敢去，我是不能去。",
+  "logical_stress": [
+    {"span": "不敢", "role": "rejected_alternative", "strength": "light", "contrast_with": "不能", "reason": "否定胆怯"},
+    {"span": "不能", "role": "corrective_focus", "strength": "strong", "contrast_with": "不敢", "reason": "真正限制"}
+  ],
+  "delivery": {"pause_before_ms": 200, "pause_after_ms": 0, "visual_cue": "说到不能时抬眼"}
+}

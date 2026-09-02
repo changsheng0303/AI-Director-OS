@@ -35,6 +35,7 @@ Overlay 的合并顺序与冲突规则读取 `../minimax-h3-video-prompt-pipelin
 - I2VA / FL2VA / L2VA 的首帧/尾帧对齐指令按官方 Base 指南原样组织。
 
 - 剧本没给台词原文时**不编造 `<d>` 对话** — 轻笑/叹气/哼声等非语言人声放 `overall_soundscape`
+- `DIALOGUE_CANON` 含 `logical_stress` 时，`<d>` 仍保持原文；在相邻表演/声音描述中用自然语言写明重音词、对比关系、停顿和音量策略。不得把 SSML 标签塞进 H3，也不得用翻译或加粗改变台词原文。
 
 ## 格式铁律
 

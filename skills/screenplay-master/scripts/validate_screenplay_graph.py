@@ -32,8 +32,18 @@ def validate(data):
         for dialogue_id in scene.get("dialogue_ids",[]):
             if dialogue_id not in dialogue: errors.append(f"scene {scene_id} references unknown dialogue {dialogue_id}")
     for dialogue_id,line in dialogue.items():
-        if not str(line.get("text","")).strip(): errors.append(f"dialogue {dialogue_id} has empty text")
+        text=str(line.get("text","")).strip()
+        if not text: errors.append(f"dialogue {dialogue_id} has empty text")
         if names and line.get("speaker") not in names: errors.append(f"dialogue {dialogue_id} speaker is not in characters")
+        stress=line.get("logical_stress",[])
+        if len(stress)>3: errors.append(f"dialogue {dialogue_id} has more than three logical stress spans")
+        seen=[]
+        for item in stress:
+            span=str(item.get("span","")).strip()
+            if not span or span not in text: errors.append(f"dialogue {dialogue_id} stress span not found in text: {span}")
+            if span in seen: errors.append(f"dialogue {dialogue_id} has duplicate stress span {span}")
+            seen.append(span)
+            if item.get("strength") not in {"light","moderate","strong"}: errors.append(f"dialogue {dialogue_id} has invalid stress strength")
     return errors
 
 def main():

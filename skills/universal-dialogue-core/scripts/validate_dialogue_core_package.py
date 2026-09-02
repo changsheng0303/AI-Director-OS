@@ -13,6 +13,8 @@ REQUIRED = [
     "scene-function-router.yaml", "voiceprint-schema.yaml",
     "continuity-ledger.yaml", "universal-dialogue-template.yaml",
     "references/source-v2.1-full.md", "references/system-integration.md",
+    "references/logical-stress-contract.md", "scripts/compile_logical_stress.py",
+    "scripts/test_logical_stress.py", "examples/logical-stress-line.json",
     "references/source-lock.json", "scripts/verify_dialogue_handoff.py",
 ]
 

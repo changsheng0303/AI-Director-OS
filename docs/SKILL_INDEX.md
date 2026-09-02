@@ -1,6 +1,6 @@
 # AI Director OS Skill 与许可证索引
 
-> 自动生成日期：2026-08-29
+> 自动生成日期：2026-09-02
 > Skill 数量：39  
 > 生成命令：`python scripts/generate_skill_index.py`
 
